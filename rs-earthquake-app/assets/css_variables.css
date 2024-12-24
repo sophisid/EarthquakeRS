@@ -1,0 +1,149 @@
+:root {
+
+    --color-dark: #1d0a6e;
+    --color-dark--op75: rgba(29, 10, 112, 0.75);
+    --color-dark--op50: rgba(29, 10, 112, 0.5);
+    --color-dark--op30: rgba(29, 10, 112, 0.3);
+    --color-dark--op20: rgba(29, 10, 112, 0.2);
+    --color-dark-darker: #190765;
+  
+    --color-off-white: #f6f6f6;
+    --color-grey: #e9ecef;
+    --color-grey-20: rgba(233, 236, 239, 0.2);
+    --color-light-grey: #f2f3f6;
+    --color-light-grey2: #bcbcbc;
+    --color-grey-dark: #3a3838;
+  
+    --color-success-light: #96decd;
+    --color-success: #23ba98;
+    --color-success-text: #0a6e58;
+    --color-success-darker: #1b9d7f; 
+  
+    --color-warning-light:#fcf8e3;
+    --color-warning-text: #8a6d3b;
+    --color-warning: #f5c923;
+    --color-warning-darker: #e3b71a; 
+  
+    --color-danger-light: #dcb3b8;
+    --color-danger: #f4364e;
+    --color-danger-darker: #d8213a;
+
+    --color-info-light: #d9edf7;
+    --color-info-text: #31708f;
+    --color-info: #3793ff;
+    --color-info-darker: #2e80df; 
+    --color-info--op30: rgba(56, 149, 255, 0.3);
+  
+    --color-primary-100: #9289b7; 
+    --color-primary-100-darker: #8379ab;
+    --color-primary-100-op70: rgba(147, 138, 183, 0.678);
+    --color-primary-80: #d0cddf;
+    --color-primary-75: #ccc5e9;
+    --color-primary-50: #e0dee9;
+    --color-primary-50--op50: rgba(224, 222, 233, 0.5);
+    --color-primary-50--op35: rgba(224, 222, 233, 0.35);
+    --color-primary-10: #f2f3f6;
+  
+    --color-km-handle: #8a7fb7; 
+    --color-checkbox-select: #b07bed; 
+    --color-exclamation: #cb03ed; 
+  
+    --color-body-bg: #ffffff;
+    --color-navbar-bg: #1d0a6e;
+    --color-footer-bg: #1d0a6e;
+    --color-userPage-bg: #f6f6f6;
+      
+    --colorMain-page-bg: #ffffff;
+    --color-breadcrumb-bg: #ffffff;
+    --color-tf-dashboard-bg: #f6f6f6;
+    --color-km-bg: #f6f6f6;
+    --color-narrative-bg: #f6f6f6;
+    --color-dashboardPage-bg: #f6f6f6;
+    --color-resourceTabs-bg: #ffffff;
+
+    --color-tf-dashboardCard-bg: #ffffff;
+    --color-popover-bg: #4d3e8d;
+    --color-narrative-popover-bg: #e9ecef;
+      
+    --color-alert-message-bg: #d93348;
+    --color-formInputs-bg: #ffffff;
+      
+    --color-sidebar-bg: #e9ecef;
+    --color-sidebarClosed-bg: #e9ecef;
+    --color-sidebarFooter-bg: #e0dee9;
+    --color-sparlSidebar-bg: #e9ecef;
+      
+    --color-frame-header: #e9ecef;
+
+    --color-paginationHover-bg: #ecf0f1;
+      
+    --color-codeBlock-bg: #f9fafc;
+    --color-codeBlockMode-bg: #e3e7ef;
+      
+    --color-configDoc-border: rgba(29, 10, 112, 0.15); 
+    --color-configDocHeader-bg: #f5f5f5;
+      
+    --color-panel-bg: #ffffff;
+    --color-panelHeading: #ffffff;
+    --color-panelHeading-bg: #1d0a6e;
+      
+    --color-codeMirror-bg: #ffffff; 
+    --color-codeMirror-border: rgba(29, 10, 112, 0.25);
+  
+    --color-icon-dark: #1d0a6e;
+    --color-icon-warning: #FE4A60;
+    --color-icon-primary: #473c74; 
+    --color-icon-grey: #5F5F5F;
+      
+    --color-btn-grey: #545151;
+    --color-btn-bg-grey: #e9eaee;
+    --color-btnHover-bg-grey: #d1d2d4e0;
+  
+    --color-btn-green: #029c02; 
+      
+    --color-btn-selected: #1d0a6e; 
+      
+    --color-btn-toolbar: #6b6565; 
+    --color-btn-toolbar-bg: #ffffff;
+    --color-btn-toolbar-border: #ddd;
+  
+    --color-form-placeholder: rgba(29, 10, 112, 0.5);
+    --color-form-border: rgba(29, 10, 112, 0.15);
+
+    --color-card-border: #d7d3e8;
+    --color-card-icon-hover: #d4d0e2;
+      
+    --color-dashboard-km: #4f39a294; 
+    --color-dashboard-narrative: #6780add9; 
+    --color-dashboard-image: #729892; 
+  
+    --mirador-main-color: #60626d;
+    --color-miradorViewer-bg: #c1c4c7;
+    --color-miradorSlot-bg: #f9f9f9;
+    --color-miradorSlot-shadow: #5a5a5a;
+    --color-miradorBottomPanel-bg: #444654e0;
+    --color-miradorTooltipDark-bg: #51535f;
+
+    --color-entity-bg-thing: #dbdbde; 
+    --color-entity-bg-actor: #d0d9dd;
+    --color-entity-bg-type: #e3e0d7;
+    --color-entity-bg-resource: #e5e9f0;
+    
+    --color-entity-icon-thing: #5b5b5d;
+    --color-entity-icon-actor: #45626F;
+    --color-entity-icon-type: #857C70;
+    --color-entity-icon-resource: #506B9B;
+  
+    --progress-bar-bg: #29313a;
+  
+    --font-family-base: 'Source Sans Pro','Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --font-size-body: 14px;
+    --font-family-navbar-logo: "Nunito", sans-serif; 
+  
+    --breadcrumb-height: 34px;
+    --nav-height: 58px; 
+    --pageSection-bg: #ffffff;
+    --pageDarkerSection-bg: #f6f6f6;
+    --pageDarkerSection-shadow: #ddd9d9;
+    --pageSection-backArea-bg: #e7e6e6;
+  }

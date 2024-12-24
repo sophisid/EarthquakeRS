@@ -1,0 +1,75 @@
+version: "2.2"
+services:
+  researchspace:
+    image: ${RESEARCHSPACE_IMAGE}
+    restart: always 
+    mem_limit: ${RESEARCHSPACE_MEMORY}
+    mem_reservation: ${RESEARCHSPACE_MEMORY}
+    environment:
+      # 1. Connect researchspace instance to blazegraph instance, in this case we use internal hostname available only inside docker-compose create network.
+      # 2. Set default logging profile to log4j2, other possible options are log4j2-debug.xml, log4j2-trace.xml
+      # 3-5. Create storage needed for image upload functionality
+      # 6-8. Create temp storage needed for image upload functionality
+      # 7. Additional options provided in .env file
+      PLATFORM_OPTS: >-
+        -Dconfig.environment.sparqlEndpoint=
+        -Dlog4j.configurationFile=classpath:org/researchspace/logging/log4j2.xml
+        ${RESEARCHSPACE_OPTS}
+      JAVA_OPTS: ${RESEARCHSPACE_JAVA_OPTS}
+
+      # Used by nginx-docker-gen to generate nginx configuration to properly proxy all request that are coming from outside.
+      # So if VIRTUAL_HOST is example.com, all requests to example.com will be proxied to this container
+      # see https://github.com/nginx-proxy/nginx-proxy#usage
+      VIRTUAL_HOST: ${RESEARCHSPACE_HOST_NAME}
+
+      # used by nginx-letsencrypt container for SSL certificate generation.
+      # see https://github.com/nginx-proxy/docker-letsencrypt-nginx-proxy-companion#step-3---proxyed-containers
+      LETSENCRYPT_HOST: ${RESEARCHSPACE_HOST_NAME}
+
+      RS_SSO_KEYCLOAK_BASE_URI: ${RS_SSO_KEYCLOAK_BASE_URI}
+      RS_SSO_KEYCLOAK_REALM: ${RS_SSO_KEYCLOAK_REALM}
+      RS_SSO_CLIENT_ID: ${RS_SSO_CLIENT_ID}
+      RS_SSO_CLIENT_SECRET: ${RS_SSO_CLIENT_SECRET}
+
+
+    volumes:
+       # mount folder where uploaded images should be stored 
+#       - ./researchspace/data/images:/images:rw
+
+       # mount folder where temporary files should be stored
+#       - ./researchspace/data/tmp:/tmp-data:rws
+       - /Users/sophia-euthymiasideris/Desktop/EarthquakeRS/rs-earthquake-app:/rs-earthquake-app:rw
+       # runtime data folder with config files and ad-hoc templates 
+       - ./researchspace/runtime-data:/runtime-data
+
+    depends_on:
+      - blazegraph-earthquake-rs
+ #     - digilib 
+    logging:
+      driver: json-file
+      options:
+        max-size: "200k"
+        max-file: "10"
+
+  blazegraph-earthquake-rs:
+#    container_name: blazegraph-earthquake-rs
+    image: ${BLAZEGRAPH_IMAGE}
+    restart: always
+    mem_limit: ${BLAZEGRAPH_MEMORY}
+    mem_reservation: ${BLAZEGRAPH_MEMORY}
+    environment:
+      JAVA_OPTS: ${BLAZEGRAPH_JAVA_OPTS}
+    volumes:
+     - ./blazegraph/:/blazegraph-data
+    ports:
+     - "10083:8080"
+    logging:
+     driver: json-file
+     options:
+      max-size: "200k"
+      max-file: "10"
+
+networks:
+  default:
+    external:
+      name: nginx-docker-gen

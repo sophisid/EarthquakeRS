@@ -1,0 +1,310 @@
+{{#if editable}}
+  <div class="btn-group" style="margin-top: 15px;">
+    <div>
+      [[!--
+      {{#ifCond mode "===" "edit"}}
+        {{#if resourceBroaderProperty}}
+        <mp-event-trigger id='form-new-trigger' 
+                          type='Component.TemplateUpdate' 
+                          data='{"scheme": "{{collection}}", "broader": "{{node}}", "new": true, "edit": false}' 
+                          targets='["{{viewId}}-term-forms"]'>
+          <button name="add" class="btn btn-grey">Add narrower {{resourceName}}</button>
+        </mp-event-trigger>
+        {{/if}}
+      {{/ifCond}}
+      --]]
+    </div> 
+    <div class="btn-form-actions"> 
+      <button name="reset" class="btn btn-default">Reset</button>
+      
+      {{#ifCond mode "===" "edit"}}
+        [[#if (hasPermission "services:*")]]
+          [[#if hideDelete]]
+          [[else]]
+            {{#if (not nested)}}
+              [[> deleteButton]]
+            {{/if}}
+          [[/if]]
+          <button name="dry-run" class="btn btn-default">Debug</button>
+        [[/if]]
+      {{/ifCond}}
+      
+      {{#switch mode}}
+        {{#case "new" break=true}}
+          <button name="submit" class="btn btn-action">[[#if actionType]][[actionType]][[else]]Create[[/if]] [[#if formEntity]][[formEntity]][[/if]]</button>
+        {{/case}}
+
+        {{#case "edit" break=true}}
+          <button name="submit" class="btn btn-action">[[#if actionType]][[actionType]][[else]]Save[[/if]] [[#if formEntity]][[formEntity]][[/if]]</button>
+        {{/case}}
+
+        {{#default}}
+          <button name="submit" class="btn btn-action">[[#if actionType]][[actionType]][[else]]Save[[/if]] [[#if formEntity]][[formEntity]][[/if]]</button>
+        {{/default}}
+
+      {{/switch}}
+
+      <mp-event-proxy id='{{viewId}}-show-form-debug-dialog' 
+                      on-event-source='{{#if iri}}{{iri}}-resource-form{{else}}{{viewId}}-resource-form{{/if}}' 
+                      on-event-type='Form.DryRunResults'
+                      proxy-event-type='Component.TemplateUpdate' 
+                      additional-data='{"show": true}' 
+                      proxy-targets='["{{viewId}}-form-debug-info"]'
+      ></mp-event-proxy>
+
+      <mp-event-target-template-render id='{{viewId}}-form-debug-info' template='{{> debugInfo}}'>
+        <template id='debugInfo'>
+          {{#if show}}
+            <mp-overlay-dialog show='true' id='{{viewId}}-form-debug-info-dialog' title="Form debug" type="modal" class="modal-xlSize">
+              <mp-overlay-dialog-content>
+                <div>
+                  <ul>
+                    {{#each dryRunResults}}
+                    <li>
+                      <semantic-link iri='{{definition.iri}}' getlabel=false><b>{{definition.iri}}</b></semantic-link>
+                      
+                      {{#if deleteTriples.length}}
+                        <p><b>Deleted Values:</b></p>
+                        <ul>
+                          {{#each deleteTriples}} 
+                            <li>
+                              <mp-code-highlight mode='text/turtle' code-text='{{value}}'></mp-code-highlight>
+                              
+                              <mp-collapsible-div expanded='true'>
+                                <mp-collapsible-div-trigger>
+                                  <b>RDF</b>
+                                </mp-collapsible-div-trigger>
+                                <mp-collapsible-div-content>
+                                  <mp-code-block mode='text/turtle' code-text='{{triples}}'></mp-code-block>
+                                </mp-collapsible-div-content>
+                              </mp-collapsible-div >
+
+                              <mp-collapsible-div expanded='false'>
+                                <mp-collapsible-div-trigger>
+                                  <b>DELETE Query</b>
+                                </mp-collapsible-div-trigger>
+                                <mp-collapsible-div-content>
+                                  <mp-code-block mode='text/turtle' code-text='{{valueDeleteQuery}}'></mp-code-block>
+                                </mp-collapsible-div-content>
+                              </mp-collapsible-div>
+                              <mp-collapsible-div expanded='false'>
+                                <mp-collapsible-div-trigger>
+                                  <b>CONSTRUCT Query (debug)</b>
+                                </mp-collapsible-div-trigger>
+                                <mp-collapsible-div-content>
+                                  <mp-code-block mode='text/turtle' code-text='{{valueConstructQuery}}'></mp-code-block>
+                                </mp-collapsible-div-content>
+                              </mp-collapsible-div>
+                            </li>
+                          {{/each}}
+                        </ul>
+                      {{/if}}
+                      
+                      {{#if insertTriples.length}}
+                        <p><b>Inserted Values:</b></p>
+                        <ul>
+                          {{#each insertTriples}} 
+                            <li>
+                              <mp-code-highlight mode='text/turtle' code-text='{{value}}'></mp-code-highlight>
+                              
+                              <mp-collapsible-div expanded='true'>
+                                <mp-collapsible-div-trigger>
+                                  <b>RDF</b>
+                                </mp-collapsible-div-trigger>
+                                <mp-collapsible-div-content>
+                                  <mp-code-block mode='text/turtle' code-text='{{triples}}'></mp-code-block>
+                                </mp-collapsible-div-content>
+                              </mp-collapsible-div >
+
+                              <mp-collapsible-div expanded='false'>
+                                <mp-collapsible-div-trigger>
+                                  <b>INSERT Query</b>
+                                </mp-collapsible-div-trigger>
+                                <mp-collapsible-div-content>
+                                  <mp-code-block mode='text/turtle' code-text='{{valueInsertQuery}}'></mp-code-block>
+                                </mp-collapsible-div-content>
+                              </mp-collapsible-div>
+
+                              <mp-collapsible-div expanded='false'>
+                                <mp-collapsible-div-trigger>
+                                  <b>CONSTRUCT Query (debug)</b>
+                                </mp-collapsible-div-trigger>
+                                <mp-collapsible-div-content>
+                                  <mp-code-block mode='text/turtle' code-text='{{valueConstructQuery}}'></mp-code-block>
+                                </mp-collapsible-div-content>
+                              </mp-collapsible-div>
+                            </li>
+                          {{/each}}
+                        </ul>
+                      {{/if}}
+                    </li>
+                    {{/each}}
+                  </ul>
+                  
+                  <div class="form-btn-group">
+                    <mp-event-trigger id='{{viewId}}-close-form-debug-dialog' 
+                                      type='OverlayDialog.Close' 
+                                      targets='["{{viewId}}-form-debug-info-dialog"]'>
+                      <button class="btn btn-default">Close</button>
+                    </mp-event-trigger>
+                  </div>
+
+                </div>
+              </mp-overlay-dialog-content>
+            </mp-overlay-dialog>
+          {{/if}}
+        </template>
+      </mp-event-target-template-render>
+
+    </div>
+  </div>
+{{/if}}
+
+[[#*inline "deleteButton"]]
+  <mp-overlay-dialog show='{{#if delete}}true{{else}}false{{/if}}' 
+                      id='{{viewId}}-item-remove-confirmation-dialog' 
+                      title="Delete {{resourceName}}" type="modal" bs-size="large">
+    <mp-overlay-dialog-trigger>
+      <button name="delete" class="btn btn-default">Delete</button>
+    </mp-overlay-dialog-trigger>
+    <mp-overlay-dialog-content>
+      <div>
+        <div>
+          <p>
+            Are you sure you want to delete
+            {{#if resourceLabelPattern}}
+              <semantic-query query="SELECT ?label WHERE {
+                                      BIND(<{{node}}> as ?item) .
+                                      {{resourceLabelPattern}}
+                                    }"
+                              template='{{> template}}'>
+
+                <template id='template'>
+                    <strong>{{bindings.0.label.value}}</strong>
+                </template>
+              </semantic-query>
+            {{else}}
+              <strong><mp-label iri='{{node}}' style="text-transform: capitalize;"></mp-label></strong>
+            {{/if}}
+            ?
+          </p>
+
+          <div>
+            <semantic-query query='SELECT DISTINCT ?resource ?label  
+                                    WHERE {
+                                      ?resource ?p <{{node}}> .
+                                      { 
+                                        ?resource crm:P1_is_identified_by ?appellation .
+                                        ?appellation a crm:E41_Appellation .
+                                        ?appellation crm:P2_has_type <http://www.researchspace.org/resource/system/vocab/resource_type/primary_appellation> . 
+                                        ?appellation crm:P190_has_symbolic_content ?label .
+                                      } UNION {
+                                        ?resource crm:P170i_time_is_defined_by ?timePrimitive .
+                                        ?timePrimitive a crm:E61_Time_Primitive .
+                                        ?timePrimitive crm:P2_has_type <http://www.researchspace.org/resource/system/vocab/resource_type/primary_time_primitive> .
+                                        ?timePrimitive crm:P190_has_symbolic_content ?label .
+                                      } UNION {
+                                        ?resource skos:prefLabel ?label .
+                                      } UNION {
+                                        ?resource crm:P190_has_symbolic_content ?label .
+                                      }
+                                    } ORDER BY ?label 
+                                      LIMIT 21'
+                            template='{{> referredByTemplate}}'
+            >
+              <template id='referredByTemplate'>
+                Some resources in the system link to it{{#if bindings.20.resource.value}} (only 20 visualised below){{/if}}:
+                <ul>
+                  {{#if bindings.20.resource.value}}
+                    {{#each bindings}}
+                      {{#if @last}}
+                      {{else}}
+                        <li>
+                          <semantic-link  iri="http://www.researchspace.org/resource/ThinkingFrames" 
+                                          title="{{label.value}}"
+                                          draggable="false"
+                                          urlqueryparam-view="resource-editor"
+                                          urlqueryparam-resource-iri="{{resource.value}}">
+                            <div class="text-link-action">{{label.value}}</div>
+                          </semantic-link>
+                        </li>
+                      {{/if}}
+                    {{/each}}
+                  {{else}}
+                    {{#each bindings}}
+                      <li>
+                        <semantic-link  iri="http://www.researchspace.org/resource/ThinkingFrames" 
+                                        draggable="false"
+                                        urlqueryparam-view="resource-editor"
+                                        urlqueryparam-resource-iri="{{resource.value}}">
+                          <div class="text-link-action">{{label.value}}</div>
+                        </semantic-link>
+                      </li>
+                    {{/each}}
+                  {{/if}}
+                </ul>
+              </template>
+            </semantic-query>
+          </div>
+        </div>
+        <div class="form-btn-group">
+          <mp-event-trigger id='{{viewId}}-cancel-modal' 
+                            type='OverlayDialog.Close' 
+                            targets='["{{viewId}}-item-remove-confirmation-dialog"]'>
+            <button class="btn btn-default">Cancel</button>
+          </mp-event-trigger>
+          [[#if assetForm]]
+            <semantic-query query='SELECT ?node ?file ?viewId WHERE { 
+                                    BIND("{{viewId}}" as ?viewId) . 
+                                    BIND(<{{node}}> AS ?node) . 
+                                    <{{node}}> crmdig:L60i_is_documented_by/crmdig:L11_had_output ?file . 
+                                  } LIMIT 1' 
+                            template='{{> deleteFileTemplate}}'>
+              
+              <template id='deleteFileTemplate'>
+                <semantic-context repository='assets'>
+                  <rs-file-remove id='{{bindings.0.viewId.value}}-file-removal-{{bindings.0.node.value}}' 
+                                  iri='{{bindings.0.file.value}}' 
+                                  storage='[[assetStorage]]'
+                                  name-predicate-iri='http://www.researchspace.org/ontology/PX_has_file_name'
+                                  media-type-predicate-iri='http://www.researchspace.org/ontology/PX_has_media_type'
+                  >
+                    <button class="btn btn-action">Delete</button>
+                  </rs-file-remove>
+                </semantic-context>
+                
+                <mp-event-proxy id='{{bindings.0.viewId.value}}-entity-removal' 
+                                on-event-source='{{bindings.0.viewId.value}}-file-removal-{{bindings.0.node.value}}' 
+                                on-event-type='File.Removed'
+                                proxy-event-type='Form.RemoveResource' 
+                                data='{"iri": "{{bindings.0.node.value}}"}' 
+                                proxy-targets='["{{bindings.0.node.value}}-resource-form"]'
+                ></mp-event-proxy>
+              </template>
+            </semantic-query>
+          [[else]]
+            <mp-event-trigger id='{{viewId}}-resource-removal' 
+                              type='Form.RemoveResource' 
+                              data='{"iri": "{{node}}"}' 
+                              targets='["{{#if iri}}{{iri}}-resource-form{{else}}{{viewId}}-resource-form{{/if}}"]'>
+              <button class="btn btn-action">Delete</button>
+            </mp-event-trigger>  
+          [[/if]]            
+          <mp-event-proxy id='{{viewId}}-update-form' 
+                          on-event-source='{{#if iri}}{{iri}}-resource-form{{else}}{{viewId}}-resource-form{{/if}}' 
+                          on-event-types='["Form.ResourceRemoved"]'
+                          proxy-event-type='Component.TemplateUpdate'
+                          proxy-targets='["{{viewId}}-term-forms", "{{viewId}}-resource-config-term-forms"]'
+          ></mp-event-proxy>
+          <mp-event-proxy id='{{viewId}}-close-form-removal-dialog' 
+                          on-event-source='{{#if iri}}{{iri}}-resource-form{{else}}{{viewId}}-resource-form{{/if}}' 
+                          on-event-type='Form.ResourceRemoved'
+                          proxy-event-type='OverlayDialog.Close' 
+                          data='{}'
+                          proxy-targets='["{{viewId}}-item-remove-confirmation-dialog"]'
+          ></mp-event-proxy>
+        </div>
+      </div>
+    </mp-overlay-dialog-content>
+  </mp-overlay-dialog>
+[[/inline ]]                                                                        

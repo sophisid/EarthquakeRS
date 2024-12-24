@@ -1,0 +1,36 @@
+services:
+  researchspace:
+    image: ${RESEARCHSPACE_IMAGE}
+    restart: unless-stopped
+    mem_limit: ${RESEARCHSPACE_MEMORY}
+    mem_reservation: ${RESEARCHSPACE_MEMORY}
+    ports:
+      - "10214:8080"
+    environment:
+      # 1. Connect researchspace instance to blazegraph instance, in this case we use internal hostname available only inside docker-compose create network.
+      # 2. Set default logging profile to log4j2, other possible options are log4j2-debug.xml, log4j2-trace.xml
+      # 3-5. Create storage needed for image upload functionality
+      # 6-8. Create temp storage needed for image upload functionality
+      # 7. Additional options provided in .env file
+      PLATFORM_OPTS: >-
+        -Dconfig.environment.sparqlEndpoint=http://blazegraph:9999/blazegraph/sparql
+        -Dlog4j.configurationFile=classpath:org/researchspace/logging/log4j2.xml
+        ${RESEARCHSPACE_OPTS}
+      JAVA_OPTS: ${RESEARCHSPACE_JAVA_OPTS}
+    volumes:
+       # mount folder where uploaded images should be stored
+ #      - ./researchspace/data/images:/images:rw
+
+       # mount folder where temporary files should be stored
+ #      - ./researchspace/data/tmp:/tmp-data:rw
+      - ../../rs-earthquake-app:/rs-earthquake-app:rw
+       # runtime data folder with config files and ad-hoc templates
+#      - ./researchspace/runtime-data:/runtime-data
+#    depends_on:
+#      - blazegraph
+#      - digilib
+    logging:
+      driver: json-file
+      options:
+        max-size: "200k"
+        max-file: "10"

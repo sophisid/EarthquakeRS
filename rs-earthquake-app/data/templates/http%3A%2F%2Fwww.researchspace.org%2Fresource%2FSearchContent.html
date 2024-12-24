@@ -1,0 +1,32 @@
+<bs-tab-container id="semantic-search-tabs" default-active-key="text-search">
+
+  <div>
+    <bs-nav bs-style="tabs">
+      <bs-nav-item event-key="text-search">
+        Text search
+      </bs-nav-item>
+      <bs-nav-item event-key="structured-search">
+        Structured search
+      </bs-nav-item>
+    </bs-nav>
+
+    <bs-tab-content>
+      <bs-tab-pane event-key="text-search">
+        <semantic-search config='[[searchConfigForFieldsFromQuery "SELECT DISTINCT ?field WHERE { ?field a <http://www.researchspace.org/resource/system/fields/Field> . ?field <http://www.researchspace.org/resource/system/fields/domain> ?domain . ?field <http://www.researchspace.org/resource/system/fields/range> ?range . }"]]'>
+          [[> rsp:SearchResults]]  
+      </semantic-search>
+      </bs-tab-pane>
+      <bs-tab-pane event-key="structured-search">
+        <semantic-search config='[[searchConfigForFieldsFromQuery "SELECT DISTINCT ?field WHERE { ?field a <http://www.researchspace.org/resource/system/fields/Field> . ?field <http://www.researchspace.org/resource/system/fields/domain> ?domain . ?field <http://www.researchspace.org/resource/system/fields/range> ?range . }"]]'>
+          <semantic-search-query-builder></semantic-search-query-builder>
+          [[> rsp:SearchResults]]
+        </semantic-search>
+      </bs-tab-pane>
+    </bs-tab-content>
+
+  </div>
+
+</bs-tab-container>
+
+
+

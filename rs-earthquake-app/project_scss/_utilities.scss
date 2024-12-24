@@ -1,0 +1,30 @@
+/* .clearable-input,
+.rs-project-images #semantic-search-text-input,
+.rs-table .form-control,
+.rs-config-page .form-control,
+.rs-import-exp .filter-container .form-control,
+.rs-security .filter-container .form-control,
+.rs-templates .filter-container .form-control,
+.rs-namespaces .filter-container .form-control,
+.researchspace-table-widget-holder .filter-container .form-control,
+input.rs-searchInput,
+.rs-search-page #semantic-search-text-input,
+.rs-project-narrative .researchspace-table-widget-holder .filter-container input,
+.rs-project-km .researchspace-table-widget-holder .filter-container input {
+
+    background-image: url(/assets/images/icons/search.svg);
+}
+
+
+.QueryBuilder--magnifierIcon {
+    background-image: url(/assets/images/icons/search.svg) !important;
+}
+
+.thinking-frames__frames .ontodia-accordion-item__body {
+
+    .ontodia-navigator--expanded {
+        & .ontodia-navigator__toggle-icon {
+          background-image: url(/assets/images/icons/minus_dark.svg);
+        }
+      }
+} */

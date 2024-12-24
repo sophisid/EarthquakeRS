@@ -1,0 +1,2 @@
+shiroSessionTimeoutSecs=-1
+maxSparqlHttpConnections = 10000

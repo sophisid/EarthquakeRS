@@ -1,0 +1,33 @@
+<div style='display: flex; align-items: center; justify-content: space-between;'>
+
+  <div style='overflow: hidden;'>
+    <span style='display: flex;'>
+      <mp-label iri='{{iri.value}}' highlight='{{highlight}}'
+                highlight-props='{"style": {"color": "#dc8a4b"}}'
+                style='white-space: nowrap; overflow: hidden; text-overflow: ellipsis;'
+      ></mp-label>
+    </span>
+  </div>
+
+  <div class='set-management__item-actions' style='margin-left: auto;'>
+    <rs-resource-dropdown id="clipboard-set-{{iri.value}}-item-actions-dropdown" class-name="dropdown-no-caret" toggle-class-name="button-clipboard-folder-actions no-active-bg">
+      {{> rsp:ResourceDropdownActions viewId="clipboard-set"
+                                      iri=iri.value
+                                      resourceConfig="http://www.researchspace.org/resource/system/resource_configurations_container/data/Set"
+                                      resourceLabel="Set"
+                                      resourceFormIRI="http://www.researchspace.org/resource/system/forms/Set"
+                                      clipboardSet=true
+      }}
+    </rs-resource-dropdown>
+  </div>
+</div>
+
+[[!--
+<hr>
+<mp-set-management-action-remove-set>
+  <bs-menu-item event-key='remove'>
+    <rs-icon icon-type="rounded" icon-name="delete" class="icon-left" symbol="true"></rs-icon>
+    Delete
+  </bs-menu-item>
+</mp-set-management-action-remove-set> 
+--]]
