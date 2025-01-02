@@ -57,3 +57,26 @@ Open your browser and navigate to `http://localhost:8080` (or the port specified
 - **Blazegraph Connection Issues**: Ensure Blazegraph is running locally and the endpoint URL is correct.
 - **Docker Build Errors**: Check the Dockerfile and ensure all dependencies are available.
 - **Application Errors**: Verify that the configuration files in `/rs-earthquake-app` are correctly updated with your SPARQL endpoint.
+
+
+## How-to WSL
+1) Install blazegraph:
+   https://migrationskb.github.io/MGKB/blazegraph
+   ```
+   sudo apt update
+   sudo apt install default-jre 
+   java --version 
+   sudo apt install default-jdk
+   javac --version 
+   wget https://github.com/blazegraph/database/releases/download/BLAZEGRAPH_2_1_6_RC/blazegraph.jar
+   
+   java -server -Xmx4g -jar blazegraph.jar
+   
+   ```
+
+2) Clone repo
+3) Navigate to `/rs-earthquake-docker/local`
+4) Start contain, it is already configured using:
+   ```
+   docker-compose up -d
+   ```
