@@ -76,7 +76,7 @@ Open your browser and navigate to `http://localhost:8080` (or the port specified
 
 2) Clone repo
 3) Navigate to `/rs-earthquake-docker/local`
-4) Start contain, it is already configured using:
+4) Start container, it is already configured using:
    ```
    docker-compose up -d
    ```
