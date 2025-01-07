@@ -16,5 +16,5 @@
    rep:repositoryImpl [
       rep:repositoryType "researchspace:SPARQLRepository" ;  
       # sparqlr:update-endpoint <http://example.org/update> ; # (Optional) Uncomment and replace with the update endpoint (only if different from the query endpoint)
-      sparqlr:query-endpoint <http://192.168.1.3:9999/blazegraph/sparql> # Replace with the URL of the SPARQL endpoint to submit queries to
+      sparqlr:query-endpoint <http://192.168.1.2:9999/blazegraph/sparql> # Replace with the URL of the SPARQL endpoint to submit queries to
    ].

@@ -32,7 +32,7 @@ This directory includes:
 
 ### 1. Start a Local Blazegraph Instance
 1. Download and set up Blazegraph from [Blazegraph GitHub](https://github.com/blazegraph/database).
-2. Start the Blazegraph server locally.
+2. Start the Blazegraph server locally. (java -server -Xmx4g -jar blazegraph.jar)
 3. Note the SPARQL endpoint (e.g., `http://localhost:9999/blazegraph/sparql`).
 
 ### 2. Configure SPARQL Endpoint
@@ -49,7 +49,7 @@ Update all relevant configuration files in `/rs-earthquake-app` and `/rs-earthqu
    ```
 
 ### 4. Access the Application
-Open your browser and navigate to `http://localhost:8080` (or the port specified in the Docker setup).
+Open your browser and navigate to `http://localhost:10214/` (or the port specified in the Docker setup).
 
 ---
 

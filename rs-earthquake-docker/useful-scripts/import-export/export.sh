@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # endpoint for export
-sparqlEndpoint="http://192.168.1.3:9999/blazegraph/sparql"
+sparqlEndpoint="http://192.168.1.2:9999/blazegraph/sparql"
 
 graphsFile="graphs.tsv"
 
