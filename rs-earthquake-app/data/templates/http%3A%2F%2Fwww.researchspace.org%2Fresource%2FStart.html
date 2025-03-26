@@ -1,195 +1,72 @@
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photo Tiles</title>
-    <style>
-        #photoTiles {
-            position: absolute;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: -1;
-            width: 100vw;
-            overflow: hidden;
-            top: 16%;
-        }
-        #photoTiles img {
-            width: 100%;
-            height: 40vh;
-            object-fit: cover;
-        }
-        #photoTiles .flip-card {
-            animation: spinner 36s ease-in-out infinite alternate;
-            background-color: transparent;
-            height: 40vh;
-            width: 20%;
-            -webkit-animation: fade-in 1.5s cubic-bezier(0.39, 0.575, 0.565, 1) both;
-            animation: fade-in 1.5s cubic-bezier(0.39, 0.575, 0.565, 1) both;
-        }
-        #photoTiles .flip-card-inner {
-            position: relative;
-            animation: spinner 36s ease-in-out infinite alternate;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            transition: transform 0.8s;
-            transform-style: preserve-3d;
-        }
-        #photoTiles .flip-card-front, .flip-card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            -webkit-backface-visibility: hidden; /* Safari */
-            backface-visibility: hidden;
-        }
-        #photoTiles .flip-card-front {
-            background-color: #bbb;
-        }
-        #photoTiles .flip-card-back {
-            background-color: #bbb;
-            transform: rotateY(180deg);
-        }
-        /* WebKit and Opera browsers */ 
-        @-webkit-keyframes spinner { 
-            0% { 
-                -webkit-transform: rotateY(0deg); 
-            } 
-            40% { 
-                -webkit-transform: rotateY(0deg); 
-            } 
-            50% { 
-                -webkit-transform: rotateY(-180deg); 
-            } 
-            100% { 
-                -webkit-transform: rotateY(-180deg); 
-            } 
-        } 
-        /* all other browsers */ 
-        @keyframes spinner { 
-            0% { 
-                -moz-transform: rotateY(0deg); 
-                -ms-transform: rotateY(0deg); 
-                transform: rotateY(0deg); 
-            } 
-            40% { 
-                -moz-transform: rotateY(0deg); 
-                -ms-transform: rotateY(0deg); 
-                transform: rotateY(0deg); 
-            }
-            50% {
-                -moz-transform: rotateY(-180deg); 
-                -ms-transform: rotateY(-180deg); 
-                transform: rotateY(-180deg); 
-            }
-            100% { 
-                -moz-transform: rotateY(-180deg); 
-                -ms-transform: rotateY(-180deg); 
-                transform: rotateY(-180deg); 
-            } 
-        }
-    </style>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <link rel="icon" href="/assets/no_auth/favicon.ico" type="image/x-icon">
+   <link href="/assets/home.css" rel="stylesheet" type="text/css">
+   <title>Home</title>
 </head>
+
 <body>
-<div id="photoTiles">
-    <div class="flip-card">
-       <div class="flip-card-inner">
-          <div class="flip-card-front"><img class="face" src="/assets/flip-images/arkalochori.webp"></div>
-          <div class="flip-card-back"><img class="back" src="/assets/flip-images/arkalochori.webp"></div>
-       </div>
-    </div>
-    <div class="flip-card">
-       <div class="flip-card-inner">
-          <div class="flip-card-front"><img class="face" src="/assets/flip-images/church.webp"></div>
-          <div class="flip-card-back"><img class="back" src="/assets/flip-images/church.webp"></div>
-       </div>
-    </div>
-    <div class="flip-card">
-       <div class="flip-card-inner">
-          <div class="flip-card-front"><img class="face" src="/assets/flip-images/house.webp"></div>
-          <div class="flip-card-back"><img class="back" src="/assets/flip-images/house.webp"></div>
-       </div>
-    </div>
-    <div class="flip-card">
-       <div class="flip-card-inner">
-          <div class="flip-card-front"><img class="face" src="/assets/flip-images/seismic-activity.webp"></div>
-          <div class="flip-card-back"><img class="back" src="/assets/flip-images/seismic-activity.webp"></div>
-       </div>
-    </div>
-    <!-- <div class="flip-card">
-       <div class="flip-card-inner">
-          <div class="flip-card-front"><img class="face" src="/assets/images/media/5_a.jpg"></div>
-          <div class="flip-card-back"><img class="back" src="/assets/images/media/5_b.png"></div>
-       </div>
-    </div> -->
- </div>
-<!-- <div id="photoSearch" data-flex-layout="column center-center">
-    <div class="logoLarge">
-       <div class="logo-title">
-          <div class="logo-title-super">visual</div>
-          search for  the
-       </div>
-       <i> Pharos Image Collections </i>
-    </div>
-    <div style="margin-top: 10vh;">
-       <div id="search-bar">
-          <form><input required="" minlength="2" class="form-control" placeholder="Provide the URL of an image to search for similar images" type="search" title="Type at least 2 characters" id="site-search" name="image" aria-label="Search through site content"><input type="hidden" name="uri" value="Default:Search"><button type="submit" class="btn searchBtn" style="background: white; height: 39px;">
-             Search<i class="fa fa-search" style="margin-left: 5px;"></i></button>
-          </form>
-       </div>
-    </div>
-    
- </div> -->
-<div>
-  <h3>RS Earthquake</h3>
-  <p>
-    RS Earthquake is a web application that allows users to explore the earthquake data.
-  </p>
-  <ul>
-    <li>
-      <semantic-link iri="http://www.cidoc-crm.org/extensions/crminf/I10_Provenance_Statement" target="_blank">
-        I10_Provenance_Statement (instances)
-      </semantic-link>
-    </li>
-    <li>
-      <semantic-link iri="http://www.cidoc-crm.org/extensions/crminf/I12_Adopted_Belief" target="_blank">
-        I12_Adopted_Belief (instances)
-      </semantic-link>
-    </li>
-    <li>
-      <semantic-link iri="http://www.cidoc-crm.org/extensions/crminf/I1_Argumentation" target="_blank">
-        I1_Argumentation (instances)
-      </semantic-link>
-    </li>
-    <li>
-      <semantic-link iri="http://www.cidoc-crm.org/extensions/crminf/I2_Belief" target="_blank">
-        I2_Belief (instances)
-      </semantic-link>
-    </li>
-    <li>
-      <semantic-link iri="http://www.cidoc-crm.org/extensions/crminf/I4_Proposition_Set" target="_blank">
-        I4_Proposition_Set (instances)
-      </semantic-link>
-    </li>
-    <li>
-      <semantic-link iri="http://www.cidoc-crm.org/extensions/crminf/I7_Belief_Adoption" target="_blank">
-        I7_Belief_Adoption (instances)
-      </semantic-link>
-    </li>
-    <li>
-      <semantic-link iri="http://www.cidoc-crm.org/extensions/crmsci/S5_Inference_Making" target="_blank">
-        S5_Inference_Making (instances)
-      </semantic-link>
-    </li>
-    <li>
-      <semantic-link iri="https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake" target="_blank">
-        EQ1_Earthquake (instances)
-      </semantic-link>
-    </li>
-    <li>
-      <semantic-link iri="https://crm-eq.ics.forth.gr/ontology#EQ2_Comparison_Evaluation" target="_blank">
-        EQ2_Comparison_Evaluation (instances)
-      </semantic-link>
-    </li>
-  </ul>
-</div>
+   <h1>Earthquake RS:A KG into Historical Earthquake Statistics</h1>
+   
+   
+
+   <div id="photoTiles">
+      <div class="flip-card">
+         <div class="flip-card-inner">
+            <div class="flip-card-front"><img class="face" src="/assets/homepage/flip/arkalochori.webp"></div>
+            <div class="flip-card-back"><img class="back" src="/assets/homepage/flip/church.webp"></div>
+         </div>
+      </div>
+      <div class="flip-card">
+         <div class="flip-card-inner">
+            <div class="flip-card-front"><img class="face" src="/assets/homepage/flip/seismos_thessaloniki_78.webp">
+            </div>
+            <div class="flip-card-back"><img class="back" src="/assets/homepage/flip/ΣΕΙΣΜΟΣ-ΕΠΤΑΝΗΣΑ-1953.webp"></div>
+         </div>
+      </div>
+      <div class="flip-card">
+         <div class="flip-card-inner">
+            <div class="flip-card-front"><img class="face" src="/assets/homepage/flip/house.webp"></div>
+            <div class="flip-card-back"><img class="back"src="/assets/homepage/flip/32d7848ebb590546f3492ab827e22ebd.webp"></div>
+         </div>
+      </div>
+      <div class="flip-card">
+         <div class="flip-card-inner">
+            <div class="flip-card-front"><img class="face" src="/assets/homepage/flip/seismic-activity.webp"></div>
+            <div class="flip-card-back"><img class="back" src="/assets/homepage/flip/seismos-2016.webp"></div>
+         </div>
+      </div>
+      <div class="search-container">
+         <input type="text" class="search-box" placeholder="Search Earthquakes">
+         <i class="search-icon">🔍</i>
+      </div>
+   </div>
+   
+   <div class="metrics-container">
+      <div class="metrics-title">Statistics</div>
+      <div class="metrics-boxes">
+         <div class="metric-box">
+            <div class="metric-value">3963</div>
+            <div class="metric-label">Total Earthquakes</div>
+         </div>
+         <div class="metric-box">
+            <div class="metric-value">6.3</div>
+            <div class="metric-label">Highest Magnitude</div>
+         </div>
+         <div class="metric-box">
+            <div class="metric-value">Santorini,Greece</div>
+            <div class="metric-label">Latest Earthquake Location</div>
+         </div>
+         <div class="metric-box">
+            <div class="metric-value">2.8</div>
+            <div class="metric-label">Latest Magnitude</div>
+         </div>
+      </div>
+      <button class="view-metrics-btn">View all metrics</button>
+   </div>
+
 </body>
+
+</html>
