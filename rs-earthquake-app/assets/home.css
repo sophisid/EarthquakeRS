@@ -197,3 +197,74 @@ body {
     font-size: 18px;
     cursor: pointer;
 }
+
+.search-icon img {
+    width: 25px !important; 
+    height: 25px !important; 
+    object-fit: contain; /* Ensures the image doesn’t get distorted */
+}
+.predefined-queries-container {
+    background-color: #f4f4f4;
+    padding: 30px 0;
+}
+
+.queries-title {
+    font-size: 24px;
+    color: #007a33;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.queries-boxes {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.query-box {
+    background-color: white;
+    padding: 20px;
+    width: 200px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    text-align: center;
+}
+
+.query-box i {
+    color: #007a33;
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.query-value {
+    font-size: 22px;
+    font-weight: bold;
+    color: #000;
+}
+
+.query-label {
+    color: #007a33;
+    font-size: 14px;
+}
+
+.query-btn {
+    background-color: #007a33;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    align-content: center;
+}
+
+.query-btn:hover {
+    background-color: #005f27;
+}
+
+.query-btn img{
+    width: 50px;
+    height: 50px;
+}
