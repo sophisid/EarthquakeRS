@@ -106,7 +106,6 @@ body {
 }
 
 .metrics-container {
-    background-color: #f4f4f4;
     padding: 30px 0;
 }
 
@@ -258,6 +257,7 @@ body {
     cursor: pointer;
     font-size: 14px;
     align-content: center;
+    min-height: 15vh;
 }
 
 .query-btn:hover {

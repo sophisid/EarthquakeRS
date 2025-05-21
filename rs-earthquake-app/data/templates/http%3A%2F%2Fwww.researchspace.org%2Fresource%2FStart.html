@@ -9,11 +9,12 @@
    <title>Home</title>
 </head>
 
-<body>
+<body style="background-image: url(../../assets/homepage/other/bg-grey-with-pattern.jpg);">
+   <section style="width: 100%; height: 20vh; display: flex; justify-content: center; align-items: center;">
    <h1>Earthquake RS:A KG into Historical Earthquake Statistics</h1>
    
-   
-
+   </section>
+<section>
    <div id="photoTiles">
       <div class="flip-card">
          <div class="flip-card-inner">
@@ -41,34 +42,90 @@
             <div class="flip-card-back"><img class="back" src="/assets/homepage/flip/seismos-2016.webp"></div>
          </div>
       </div>
+      
       <div class="search-container">
-         <input type="text" class="search-box" placeholder="Search Earthquakes">
+         <semantic-simple-search class="search-box" min-search-term-length="2" query='
+                             SELECT ?resource  ?label WHERE {
+                                 ?resource a ?type.
+                                 ?resource rdfs:label ?label.
+                             }limit 1000
+                             ' template='<span title="{{resource.value}}">{{label.value}} ({{typelabel.value}})</span>'
+            input-placeholder='Search Earthquakes'></semantic-simple-search>
+         <!-- <input type="text" class="search-box" placeholder="Search Earthquakes"> -->
          <i class="search-icon"><img src="/assets/search.png" alt="search icon"></i>
       </div>
    </div>
-   
+</section> 
+<section>
    <div class="metrics-container">
       <div class="metrics-title">Statistics</div>
       <div class="metrics-boxes">
          <div class="metric-box">
-            <div class="metric-value">3963</div>
+            <div class="metric-value">
+               <semantic-query query="SELECT (STR(COUNT(?sub)) AS ?count)
+               WHERE {
+                 ?sub a <https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake> .
+               }
+               "></semantic-query>
+            </div>
             <div class="metric-label">Total Earthquakes</div>
          </div>
          <div class="metric-box">
-            <div class="metric-value">6.3</div>
+            <div class="metric-value">
+               <semantic-query query="SELECT (STR(ROUND(MAX(xsd:double(?mag)) * 10) / 10) AS ?maxMagnitude)
+               WHERE {
+                 ?x a <https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake> .
+                 ?x <http://www.cidoc-crm.org/extensions/crmsci/O12_has_dimension> ?dim .
+                 ?dim a <http://www.cidoc-crm.org/cidoc-crm/E54_Dimension> ;
+                       <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> ?type ;
+                       <http://www.cidoc-crm.org/cidoc-crm/P90_has_value> ?mag .
+                 FILTER(CONTAINS(STR(?type), 'magnitude'))
+               }"></semantic-query>
+            </div>
             <div class="metric-label">Highest Magnitude</div>
          </div>
          <div class="metric-box">
-            <div class="metric-value">Santorini,Greece</div>
+            <div class="metric-value">
+               <semantic-query query="SELECT ?label 
+               WHERE {
+                 ?x a <https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake> ;
+                    <http://www.cidoc-crm.org/cidoc-crm/P4_has_time-span> ?time ;
+                    <http://www.cidoc-crm.org/cidoc-crm/P7_took_place_at> ?place .
+                    ?place rdfs:label ?label.
+                 
+                 ?time <http://www.cidoc-crm.org/cidoc-crm/P82_at_some_time_within> ?date .
+               }
+               ORDER BY DESC(xsd:dateTime(?date))
+               LIMIT 1"></semantic-query>
+            </div>
             <div class="metric-label">Latest Earthquake Location</div>
          </div>
          <div class="metric-box">
-            <div class="metric-value">2.8</div>
+            <div class="metric-value">
+               <semantic-query query="SELECT (STR(?mag) as ?magnitude)
+               WHERE {
+                 ?x a <https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake> ;
+                    <http://www.cidoc-crm.org/cidoc-crm/P4_has_time-span> ?time ;
+                    <http://www.cidoc-crm.org/cidoc-crm/P7_took_place_at> ?place .
+                    ?place rdfs:label ?label.
+                 
+                 ?time <http://www.cidoc-crm.org/cidoc-crm/P82_at_some_time_within> ?date .
+                 ?x <http://www.cidoc-crm.org/extensions/crmsci/O12_has_dimension> ?dim .
+                                ?dim a <http://www.cidoc-crm.org/cidoc-crm/E54_Dimension> ;
+                                      <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> ?type ;
+                                      <http://www.cidoc-crm.org/cidoc-crm/P90_has_value> ?mag .
+                                FILTER(CONTAINS(STR(?type), 'magnitude'))
+               }
+               ORDER BY DESC(xsd:dateTime(?date))
+               LIMIT 1"></semantic-query>
+            </div>
             <div class="metric-label">Latest Magnitude</div>
          </div>
       </div>
       <button class="view-metrics-btn">View all metrics</button>
    </div>
+</section>
+<section>
 <div class="predefined-queries-container">
    <div class="queries-title">Predefined Queries</div>
    <div class="queries-boxes">
@@ -100,8 +157,13 @@
       </div>
    </div>
 </div>
+</section>
+<style>
+   .search-widget{
+      width: inherit;
+   }
+</style>
 
 </body>
 
 </html>
-</body>
