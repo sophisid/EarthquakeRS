@@ -1,0 +1,17 @@
+<div>
+<semantic-table id='places-table' query='SELECT DISTINCT ?subject
+WHERE {
+  ?subject a <http://www.cidoc-crm.org/cidoc-crm/E53_Place>.
+  FILTER NOT EXISTS {?subject <http://www.cidoc-crm.org/extensions/crmsci/O12_has_dimension> ?g}
+  FILTER NOT EXISTS {?subject <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> <https://crm-eq.ics.forth.gr/ontology#epicentral_coordinates>}
+}
+
+  ' number-of-displayed-rows=15
+  options='{"showFilter": true}' no-result-template='{{> noplaces}}'>
+  <template id="noplaces">
+    <div style="padding: 12px 8px">
+      No places available
+    </div>
+  </template>
+</semantic-table>
+</div>

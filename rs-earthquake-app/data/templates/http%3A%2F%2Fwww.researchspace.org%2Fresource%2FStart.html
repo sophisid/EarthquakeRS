@@ -44,13 +44,16 @@
       </div>
       
       <div class="search-container">
-         <semantic-simple-search class="search-box" min-search-term-length="2" query='
-                             SELECT ?resource  ?label WHERE {
-                                 ?resource a ?type.
-                                 ?resource rdfs:label ?label.
-                             }limit 1000
-                             ' template='<span title="{{resource.value}}">{{label.value}} ({{typelabel.value}})</span>'
-            input-placeholder='Search Earthquakes'></semantic-simple-search>
+         <semantic-simple-search id='semantic-simple-search' query='
+           SELECT DISTINCT  ?resource ?label ?typelabel WHERE {
+             FILTER REGEX(?label, ?__token__, "i")
+             ?resource a ?type .
+               ?type rdfs:label ?typelabel .
+               FILTER (lang(?typelabel) = "en")
+               ?resource rdfs:label ?label .
+           }  LIMIT 10
+         ' template='<span style="color: blue;" title="{{resource.value}}">{{label.value}} ({{typelabel.value}})</span>'
+            input-placeholder='Search for something e.g. "Heraklion"'></semantic-simple-search>
          <!-- <input type="text" class="search-box" placeholder="Search Earthquakes"> -->
          <i class="search-icon"><img src="/assets/search.png" alt="search icon"></i>
       </div>
@@ -158,10 +161,18 @@
    </div>
 </div>
 </section>
+<section>
+   
+</section>
 <style>
    .search-widget{
       width: inherit;
    }
+   span.Select-arrow-zone{
+    display: none !important;
+}
+
+
 </style>
 
 </body>

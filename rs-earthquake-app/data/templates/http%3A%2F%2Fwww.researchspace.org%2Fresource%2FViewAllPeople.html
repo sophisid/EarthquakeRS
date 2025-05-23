@@ -1,0 +1,15 @@
+<div>
+<semantic-table id='places-table' query='SELECT DISTINCT ?subject
+WHERE {
+  ?subject a  <http://www.cidoc-crm.org/cidoc-crm/E21_Person>
+}
+
+  ' number-of-displayed-rows=15
+  options='{"showFilter": true}' no-result-template='{{> noplaces}}'>
+  <template id="noplaces">
+    <div style="padding: 12px 8px">
+      No places available
+    </div>
+  </template>
+</semantic-table>
+</div>

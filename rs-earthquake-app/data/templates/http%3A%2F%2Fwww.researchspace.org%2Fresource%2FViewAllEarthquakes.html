@@ -1,0 +1,20 @@
+<div>
+<semantic-table id='places-table' query='SELECT DISTINCT ?subject ?placeVal ?timeVal
+WHERE {
+  ?subject a <https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake>.
+
+  OPTIONAL { ?subject <http://www.cidoc-crm.org/cidoc-crm/P7_took_place_at> ?place. }
+  OPTIONAL { ?subject <http://www.cidoc-crm.org/cidoc-crm/P4_has_time-span> ?time. }
+
+  BIND(COALESCE(STR(?place), "unknown") AS ?placeVal)
+  BIND(COALESCE(STR(?time), "unknown") AS ?timeVal)
+}
+  ' number-of-displayed-rows=15
+  options='{"showFilter": true}' no-result-template='{{> noplaces}}'>
+  <template id="noplaces">
+    <div style="padding: 12px 8px">
+      No places available
+    </div>
+  </template>
+</semantic-table>
+</div>
