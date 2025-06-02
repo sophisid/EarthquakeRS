@@ -1,20 +1,31 @@
-<div>
-<semantic-table id='places-table' query='SELECT DISTINCT ?subject ?placeVal ?timeVal
-WHERE {
-  ?subject a <https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake>.
+<div style="padding: 2vw;">
+  <h3 style="justify-self: center;"> View all Earthquakes</h3>
+  <div class="semantic-table-container">
+    <semantic-table id='eq-table' query='SELECT DISTINCT ?subject ?placeVal ?timeVal
+    WHERE {
+      ?subject a <https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake>.
 
-  OPTIONAL { ?subject <http://www.cidoc-crm.org/cidoc-crm/P7_took_place_at> ?place. }
-  OPTIONAL { ?subject <http://www.cidoc-crm.org/cidoc-crm/P4_has_time-span> ?time. }
+      OPTIONAL { ?subject <http://www.cidoc-crm.org/cidoc-crm/P7_took_place_at> ?place. }
+      OPTIONAL { ?subject <http://www.cidoc-crm.org/cidoc-crm/P4_has_time-span> ?time. }
 
-  BIND(COALESCE(STR(?place), "unknown") AS ?placeVal)
-  BIND(COALESCE(STR(?time), "unknown") AS ?timeVal)
-}
-  ' number-of-displayed-rows=15
-  options='{"showFilter": true}' no-result-template='{{> noplaces}}'>
-  <template id="noplaces">
-    <div style="padding: 12px 8px">
-      No places available
-    </div>
-  </template>
-</semantic-table>
+      BIND(COALESCE(STR(?place), "unknown") AS ?placeVal)
+      BIND(COALESCE(STR(?time), "unknown") AS ?timeVal)
+    }
+      ' number-of-displayed-rows=15
+      options='{"showFilter": true}' no-result-template='{{> noeq}}'>
+      <template id="noeq">
+        <div style="padding: 12px 8px">
+          No eq available
+        </div>
+      </template>
+    </semantic-table>
+  </div>
 </div>
+<style>
+  .semantic-table-container {
+    width: 80vw;
+    height: 100%;
+    padding: 2vw;
+    justify-self: center;
+  }
+</style>

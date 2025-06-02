@@ -9,135 +9,62 @@
   <section
     style="position: relative; z-index: 2; padding-top: 2vh; justify-self: center; display: flex; flex-direction: column; align-items: center;">
     <h3>Map Search</h3>
-    <ol class="page-breadcrumb">
-      <li>
-        <mp-link title="Home" url="/resource/Start">Home</mp-link>
-      </li>
-      <li class="active">Map Search</li>
-    </ol>
     
     <div class="">
-    
-      <div class="row ">
-        <div class="">
-          <header>
-            <h1>Map Search</h1>
-          </header>
-        </div>
-      </div>
-    
-      <div class="customBodyLayout">
-        <semantic-search relations='[[> rsp:SearchSimpleRelations]]' search-profile='[[> rsp:SearchSimpleProfile]]'>
-          <div id="header-search" class="search-page">
-            <h3 class="SpotHeader">Search for</h3>
-    
-            <semantic-search-query-keyword  default-query='
-            PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/>
-        PREFIX wgs84: <http://www.w3.org/2003/01/geo/wgs84_pos#>
-        SELECT DISTINCT $subject WHERE {
-          {
-            $subject a <https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake>. 
-          } UNION {
-            $subject a <http://www.cidoc-crm.org/extensions/crminf/I12_Adopted_Belief>.
-          } UNION {
-            $subject a <http://www.cidoc-crm.org/cidoc-crm/E54_Dimension>. 
-          }
-          $subject rdfs:label ?label .
-
-          $subject ?f ?place .
-          ?place owl:sameAs ?geoplace .
-        }ORDER BY ASC(?label)' 
-        query='
+      <div class="startMapContainer">
+        <semantic-map id="monuments-map" fix-zoom-level="4" query="
         PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/>
-        PREFIX wgs84: <http://www.w3.org/2003/01/geo/wgs84_pos#>
-        SELECT DISTINCT $subject WHERE {
-          {
-            $subject a <https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake>. 
-          } UNION {
-            $subject a <http://www.cidoc-crm.org/extensions/crminf/I12_Adopted_Belief>.
-          } UNION {
-            $subject a <http://www.cidoc-crm.org/cidoc-crm/E54_Dimension>. 
-          }
-          $subject rdfs:label ?label .
-          ?placelabel bds:search ?__token__ ;
-          bds:minRelevance "0.3"^^xsd:double;
-          bds:relevance ?score ;
-          bds:matchAllTerms "true" .
-          
-          $subject ?f ?place .
-          ?place owl:sameAs ?geoplace .
-          ?place rdfs:label ?placelabel .
-        }ORDER BY ASC(?label) 
- '></semantic-search-query-keyword>
-            <semantic-search-facet-breadcrumbs></semantic-search-facet-breadcrumbs>
-          </div>
-          <div class="row">
-            <bs-col lg="3" md="4" sm="5" class="fade-in-fwd filters-container" style="margin-top: 8px"
-              id="">
-              <bs-panel id="filter-panel" header="Filters" collapsible="true" default-expanded="true">
-                <semantic-search-facet open-by-default='true' sortby='count-desc'></semantic-search-facet>
-                <div class="animated-background-filters"></div>
-              </bs-panel>
-            </bs-col>
-            <bs-col lg="9" md="8" sm="7">
-              <semantic-search-result-holder>
-                <div>
-                  <semantic-search-result>
-                    <div class="startMapContainer">
-                      <semantic-map id="monuments-map" fix-zoom-level="4" query="
-                      PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/>
-                        PREFIX wgs: <http://www.w3.org/2003/01/geo/wgs84_pos#>
-                        PREFIX owl: <http://www.w3.org/2002/07/owl#>
-                        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-                        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+          PREFIX wgs: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+          PREFIX owl: <http://www.w3.org/2002/07/owl#>
+          PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+          PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-                        SELECT DISTINCT $subject
-                              (STR(?rawLat) AS ?lat) 
-                              (STR(?rawLong) AS ?lng)
-                        WHERE {
-                          BIND($subject AS ?link)
-                          BIND(?label AS ?description)
-                          $subject rdfs:label ?label .
-                          {
-                            $subject a <https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake>. 
-                          } UNION {
-                            $subject a <http://www.cidoc-crm.org/extensions/crminf/I12_Adopted_Belief>.
-                          } UNION {
-                            $subject a <http://www.cidoc-crm.org/cidoc-crm/E54_Dimension>. 
-                          }
-                          $subject ?f ?place .
-                          ?place owl:sameAs ?geoplace .
-                          {
-                            ?geoplace wgs:lat [ rdf:value ?rawLat ] .
-                            ?geoplace wgs:long [ rdf:value ?rawLong ] .
-                          } UNION {
-                            ?geoplace wgs:lat [ wgs:numericValue ?rawLat ] .
-                            ?geoplace wgs:long [ wgs:numericValue ?rawLong ] .
-                          } UNION {
-                            ?geoplace wgs:lat ?rawLat .
-                            ?geoplace wgs:long ?rawLong .
-                            FILTER(isLiteral(?rawLat) && isLiteral(?rawLong))
-                          }
+          SELECT DISTINCT $subject
+                (STR(?rawLat) AS ?lat) 
+                (STR(?rawLong) AS ?lng)
+          WHERE {
+            BIND($subject AS ?link)
+            BIND(?label AS ?description)
+            $subject rdfs:label ?label .
+            {
+              $subject a <https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake>. 
+            } UNION {
+              $subject a <http://www.cidoc-crm.org/extensions/crminf/I12_Adopted_Belief>.
+            } UNION {
+              $subject a <http://www.cidoc-crm.org/cidoc-crm/E54_Dimension>. 
+            }
+            $subject ?f ?place .
+            ?place owl:sameAs ?geoplace .
+            {
+              ?geoplace wgs:lat [ rdf:value ?rawLat ] .
+              ?geoplace wgs:long [ rdf:value ?rawLong ] .
+            } UNION {
+              ?geoplace wgs:lat [ wgs:numericValue ?rawLat ] .
+              ?geoplace wgs:long [ wgs:numericValue ?rawLong ] .
+            } UNION {
+              ?geoplace wgs:lat ?rawLat .
+              ?geoplace wgs:long ?rawLong .
+              FILTER(isLiteral(?rawLat) && isLiteral(?rawLong))
+            }
+            FILTER(
+            (BOUND(?rawLat)) && (BOUND(?rawLong)) &&
+            (?rawLat != 0) && (?rawLong != 0) &&
+            xsd:double(?rawLat) >= 22.0 && xsd:double(?rawLat) <= 47.0 && xsd:double(?rawLong)>= 7.0 && xsd:double(?rawLong) <= 45.0
+                )
 
-                          FILTER(bound(?rawLat) && bound(?rawLong))
-                        }"
-                        no-result-template='<h3>No results were found to be visualized on map</h3>'
-                        tuple-template='{{> StartMapPopUp}}' fix-zoom-level=5>
-                        <template id="StartMapPopUp">
-                          <div style="width:70vw">
-                            <h4>
-                              <semantic-link style="color:#112e45;" iri="{{subject.value}}"></semantic-link>
-                            </h4>
-                          </div>
-                        </template>
-                      </semantic-map>
-                    </div>
-                  </semantic-search-result>
-                </div>
-              </semantic-search-result-holder>
-            </bs-col>
-          </div>
-        </semantic-search>
+            FILTER((BOUND(?rawLat)) && (BOUND(?rawLong)) && (?rawLat != 0) && (?rawLong != 0))
+          }"
+          no-result-template='<h3>No results were found to be visualized on map</h3>'
+          tuple-template='{{> StartMapPopUp}}' fix-zoom-level=5>
+          <template id="StartMapPopUp">
+            <div style="width:70vw">
+              <h4>
+                <semantic-link style="color:#112e45;" iri="{{subject.value}}"></semantic-link>
+              </h4>
+            </div>
+          </template>
+        </semantic-map>
+              
       </div>
       </div>
   </section>
@@ -148,16 +75,28 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 40vw;
+    min-width: 80vw;
     height: 39px;
     margin: 0;
     border-radius: 5px;
   }
-
-  .startMapContainer {
-    padding-top: 1vh;
-  width: 650px;
-  height: 450px;
-
-}
+@media screen and (max-width: 600px) {
+    .startMapContainer {
+      width: 300px;
+      height: 300px;
+    }
+  }
+@media screen and (min-width: 601px) {
+    .startMapContainer {
+      width: 600px;
+      height: 450px;
+    }
+  }
+@media screen and (min-width: 1024px) {
+    .startMapContainer {
+      width: 800px;
+      height: 600px;
+    }
+  }
+  
 </style>

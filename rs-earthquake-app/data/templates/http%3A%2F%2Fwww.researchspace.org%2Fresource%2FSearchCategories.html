@@ -1,0 +1,34 @@
+{
+      "<http://www.cidoc-crm.org/cidoc-crm/E55_Type>": [
+          {
+            "kind": "resource",
+            "queryPattern": "$subject a ?__domain__ .
+            $subject $__relation__ ?__value__ ."
+          }
+      ],
+      "<https://www.w3.org/2001/XMLSchema#date>": [
+      {
+        "kind": "date-range",
+        "datatype": "http://www.w3.org/2001/XMLSchema#date",
+        "queryPattern": "
+          $subject ?__relation__ ?literal .
+          BIND(xsd:date(STR(?literal)) as ?date_value)
+          FILTER(?date_value <= ?__dateEndValue__ ) .
+          FILTER(?date_value >= ?__dateBeginValue__ ) .
+        "
+      }
+    ],
+      "<http://www.w3.org/2001/XMLSchema#double>": [{
+         "kind": "numeric-range",
+         "datatype": "http://www.w3.org/2001/XMLSchema#double",
+         "queryPattern": "
+           {
+            $subject a ?__domain__.
+            $subject ?__relation__ ?literal .
+            FILTER(?literal >= ?__numericRangeBeginValue__) .
+            FILTER(?literal <= ?__numericRangeEndValue__) .
+           }"
+        }
+      ]
+  
+   }

@@ -110,7 +110,7 @@ body {
 
 .metrics-title {
     font-size: 24px;
-    color: #007a33;
+    color: #00487b;
     font-weight: bold;
     margin-bottom: 20px;
 }
@@ -132,7 +132,7 @@ body {
 }
 
 .metric-box i {
-    color: #007a33;
+    color: #00487b;
     font-size: 18px;
     margin-bottom: 8px;
 }
@@ -144,12 +144,12 @@ body {
 }
 
 .metric-label {
-    color: #007a33;
+    color: #00487b;
     font-size: 14px;
 }
 
 .view-metrics-btn {
-    background-color: #007a33;
+    background-color: #00487b;
     color: white;
     padding: 10px 15px;
     border: none;
@@ -208,7 +208,7 @@ body {
 
 .queries-title {
     font-size: 24px;
-    color: #007a33;
+    color: #00487b;
     font-weight: bold;
     margin-bottom: 20px;
 }
@@ -230,7 +230,7 @@ body {
 }
 
 .query-box i {
-    color: #007a33;
+    color: #00487b;
     font-size: 18px;
     margin-bottom: 8px;
 }
@@ -242,12 +242,12 @@ body {
 }
 
 .query-label {
-    color: #007a33;
+    color: #00487b;
     font-size: 14px;
 }
 
 .query-btn {
-    background-color: #007a33;
+    background-color: #00487b;
     color: white;
     padding: 10px 15px;
     border: none;
