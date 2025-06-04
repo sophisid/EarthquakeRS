@@ -16,9 +16,7 @@
             </bs-col>
             <semantic-search-result-holder>
                <style>
-                  #GuidedTour {
-                     display: none !important;
-                  }
+                
                </style>
                <div data-flex-self="md-full">
                   <semantic-search-facet-breadcrumbs></semantic-search-facet-breadcrumbs>
@@ -46,63 +44,10 @@
                         </template>
                      </semantic-query>
                   </semantic-search-result>
-                  <div class="export-buttons">
-
-
-                     <semantic-search-result>
-                        <mp-overlay-dialog title="csv">
-                           <mp-overlay-dialog-trigger>
-                              <button class="btn btn-download">Download CSV</button>
-                           </mp-overlay-dialog-trigger>
-                           <mp-overlay-dialog-content>
-                              <div class="modal-title-custom">Are you sure you would like download the results in CSV?
-                              </div>
-                              <mp-sparql-download id='csv-download' query="SELECT * WHERE {
-                                                 ?subject ?b ?c
-                                                }" header="text/csv" filename="csv-result.csv">
-                                 <button class="btn btn-download">Yes, Download</button>
-                              </mp-sparql-download>
-                           </mp-overlay-dialog-content>
-                        </mp-overlay-dialog>
-                     </semantic-search-result>
-                     <semantic-search-result>
-                        <mp-overlay-dialog title="json">
-                           <mp-overlay-dialog-trigger>
-                              <button class="btn btn-download">Download JSON</button>
-                           </mp-overlay-dialog-trigger>
-                           <mp-overlay-dialog-content>
-                              <div class="modal-title-custom">Are you sure you would like download the results in JSON?
-                              </div>
-                              <mp-sparql-download id='json-download' query="SELECT * WHERE {
-                                                 ?subject ?b ?c
-                                                }" header="application/sparql-results+json"
-                                 filename="json-result.json">
-                                 <button class="btn btn-download">Yes, Download</button>
-                              </mp-sparql-download>
-                           </mp-overlay-dialog-content>
-                        </mp-overlay-dialog>
-                     </semantic-search-result>
-                     <semantic-search-result>
-                        <mp-overlay-dialog title="rdf">
-                           <mp-overlay-dialog-trigger>
-                              <button class="btn btn-download">Download RDF</button>
-                           </mp-overlay-dialog-trigger>
-                           <mp-overlay-dialog-content>
-                              <div class="modal-title-custom">Are you sure you would like download the results in RDF?
-                              </div>
-                              <mp-sparql-download id='rdf-download' query="SELECT * WHERE { ?subject ?b ?c}"
-                                 header="application/rdf+xml" filename="rdf-result.rdf">
-                                 <button class="btn btn-download">download RDF</button>
-                              </mp-sparql-download>
-                           </mp-overlay-dialog-content>
-                        </mp-overlay-dialog>
-                     </semantic-search-result>
-                  </div>
                   <bs-tabs unmount-on-exit=true id='search-results' animation=false>
                      <bs-tab event-key="1" title="Grid">
                         <semantic-search-result>
                            <semantic-table id='grid-result' query='
-                                                   PREFIX schema: <http://schema.org/>
                                                    SELECT DISTINCT ?subject ?label (GROUP_CONCAT(DISTINCT ?typeLabel;SEPARATOR=", ")as ?typeLabel) WHERE {
                                                      ?subject a ?type.
                                                      ?type rdfs:label ?typeLabel.
@@ -170,101 +115,6 @@
          </div>
       </semantic-search>
    </div>
-   <rs-guided-tour id='guided-tour' steps='[{
- "text": "Welcome to the Structured Search page tour. 
- In this tour you will learn how to formulate complex queries and use the Structured Search functionality.
- Click on Next to begin.
- ",
- "selector": ".ItemSelector--itemSelector.QueryBuilder--domainSelection",
- "position": "left"
-},{
- "text": "For this tour we are going to create the following query:
- \"VREs that have the keyword: \"ecosystem vulnerability\" and that was created by Ilaria Rosati and contains Alien Species Thesaurus \".Click on next to view the next step.
- ",
- "selector": "ul.ItemSelector--itemSelector.QueryBuilder--domainSelection",
- "position": "left"
-},{
- "text": "First you must select the category you are about search. Click on the VRE option. Click on next to view the next step.
- ",
- "selector": "li[aria-label=\"VRE\"]",
- "position": "right"
-},{
- "text": "Since we want to search for types with the keyword: \"ecosystem vulnerability\", we should select the Type option and the relation has keyword.  Click on next to view the next step.",
- "selector": "li[aria-label=\"Type\"]",
- "position": "left"
-},{
- "text": "To add the Relation just press the relation \"has keyword\" Click on next to view the next step.",
- "selector": "#structured-search > div > div.QueryBuilder--searchAreaHolder > div > div > div > ul > li:nth-child(3)",
- "position": "left"
-},{
- "text": "To search for that keyword, simply type in \"ecosystem vulnerability\" in this section. Select the  \"controlled vocabularity\" option. Click on next to view the next step.",
- "selector": "#structured-search > div > div.QueryBuilder--searchAreaHolder > div > div > div > div.QueryBuilder--activeTerm > div",
- "position": "left"
-},{
- "text": "A first set of results will load.. to continue click next.",
- "selector": "div[data-flex-self=\"md-full\"]",
- "position": "top"
-},{
- "text": "To continue with our query, we must now add the \"ecosystem vulnerability\" keyword. Select the or option.  Click on next to view the next step.",
- "selector": ".QueryBuilder--addConjunctButton.QueryBuilder--selectedItem.QueryBuilder--actionableItem",
- "position": "right"
-},{
- "text": "To search for that keyword, simply type in \"ecosystem vulnerability\" in this section. Select the  \"ecosystem vulnerability\" option. Click on next to view the next step.",
- "selector": "#structured-search > div > div.QueryBuilder--searchAreaHolder > div > div > div > div.QueryBuilder--activeTerm > div",
- "position": "left"
-},{
- "text": "More results will now load.. to continue click next.",
- "selector": "div[data-flex-self=\"md-full\"]",
- "position": "top"
-},{
- "text": "To continue with our query, we must limit the query by adding the creator \"Ilria Rosati\". Select the and option.  Click on next to view the next step.",
- "selector": ".QueryBuilder--addConjunctButton.QueryBuilder--selectedItem.QueryBuilder--actionableItem",
- "position": "right"
-}, {
- "text": "Since we want to search for a person with the keyword: \"Ilaria Rosati\", we should select the Person option and the relation \"was created by\".  Click on next to view the next step.",
- "selector": "li[aria-label=\"Person\"]",
- "position": "left"
-},{
- "text": "To add the Relation just press the relation \"was created by\" Click on next to view the next step.",
- "selector": "#structured-search > div > div.QueryBuilder--searchAreaHolder > div > div > div > ul > li:nth-child(1)",
- "position": "left"
-},{
- "text": "To search for the Person, simply type in \"Ilaria Rosati\" in this section. Select the  \"Ilaria Rosati\" option. Click on next to view the next step.",
- "selector": "#structured-search > div > div.QueryBuilder--searchAreaHolder > div > div > div > div.QueryBuilder--activeTerm > div",
- "position": "left"
-},{
- "text": "More results will now load.. to continue click next.",
- "selector": "div[data-flex-self=\"md-full\"]",
- "position": "top"
-},{
- "text": "To continue with our query, we must limit the query by adding the service \"Alien Species Thesaurus\". Select the and option.  Click on next to view the next step.",
- "selector": "#undefined-searchClause-1 > div.QueryBuilder--addConjunctButton.QueryBuilder--selectedItem.QueryBuilder--actionableItem",
- "position": "right"
-}, {
- "text": "Since we want to search for a service with the keyword: \"Alien Species Thesaurus\", we should select the Service option and the relation \"contain\".  Click on next to view the next step.",
- "selector": "li[aria-label=\"Service\"]",
- "position": "left"
-},{
- "text": "To add the Relation just press the relation \"contains\" Click on next to view the next step.",
- "selector": "#structured-search > div > div.QueryBuilder--searchAreaHolder > div > div.QueryBuilder--searchArea > div.QueryBuilder--searchClauseHolder > div.QueryBuilder--searchClause > div:nth-child(2) > div",
- "position": "left"
-},{
- "text": "To search for the Service, simply type in \"Alien Species Thesaurus\" in this section. Select the  \"Alien Species Thesaurus\" option. Click on next to view the next step.",
- "selector": "#structured-search > div > div.QueryBuilder--searchAreaHolder > div > div > div > div.QueryBuilder--activeTerm > div",
- "position": "left"
-},{
- "text": "And here is your final results!",
- "selector": "div[data-flex-self=\"md-full\"]",
- "position": "top"
-}]'></rs-guided-tour>
-   <!-- use `mp-event-trigger` component to start guided tour -->
-   <mp-event-trigger id='guided-tour-start' type='GuidedTour.Start' targets='["guided-tour"]'>
-      <button class="custom-primary-button question-button" id="GuidedTour">Guided Tour</button>
-   </mp-event-trigger>
-   <!-- use `mp-event-proxy` component to run guided tour if it wasn't seen -->
-   <mp-event-proxy id='guided-tour-run' on-event-type='Component.Loaded' on-event-source='source-id'
-      proxy-event-type='GuidedTour.RunIfNotSeen' proxy-targets='["guided-tour"]'>
-   </mp-event-proxy>
 </div>
 
 <style>

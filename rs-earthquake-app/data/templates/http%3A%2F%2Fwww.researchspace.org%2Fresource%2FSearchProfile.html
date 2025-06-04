@@ -1,5 +1,9 @@
 {
     "categories": [{
+      "iri": "<https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake>",
+      "label": "Earthquake",
+      "thumbnail": "/assets/images/icons/structuredSearchIcons/eq.svg"
+    },{
       "iri": "<http://www.cidoc-crm.org/cidoc-crm/E53_Place>",
       "label": "Place",
       "thumbnail": "/assets/images/icons/structuredSearchIcons/right.svg"
@@ -12,25 +16,302 @@
       "label": "Type",
       "thumbnail": "/assets/images/icons/structuredSearchIcons/type.svg"
     }, {
+      "iri": "<http://www.cidoc-crm.org/cidoc-crm/E54_Dimension>",
+      "label": "Dimension",
+      "thumbnail": "/assets/images/icons/structuredSearchIcons/dimension.svg"
+    }, {
       "iri": "<http://www.w3.org/2001/XMLSchema#string>",
       "label": "Value",
       "thumbnail": "/assets/images/icons/structuredSearchIcons/type.svg"
-    }, {
+    },{
       "iri": "<https://www.w3.org/2001/XMLSchema#double>",
       "label": "Double",
       "thumbnail": "/assets/images/icons/structuredSearchIcons/double.svg"
+    },{
+      "iri": "<http://www.cidoc-crm.org/cidoc-crm/E31_Document>",
+      "label": "Document",
+      "thumbnail": "/assets/images/icons/structuredSearchIcons/document.svg"
+    },{
+      "iri": "<http://www.cidoc-crm.org/cidoc-crm/E21_Person>",
+      "label": "Person",
+      "thumbnail": "/assets/images/icons/structuredSearchIcons/person.svg"
+    },{
+      "iri": "<http://www.cidoc-crm.org/cidoc-crm/E73_Information_Object>",
+      "label": "Information Object",
+      "thumbnail": "/assets/images/icons/structuredSearchIcons/informationObject.svg"
+    },{
+      "iri": "<http://www.cidoc-crm.org/cidoc-crm/E52_Time-Span>",
+      "label": "Time Span",
+      "thumbnail": "/assets/images/icons/structuredSearchIcons/timeSpan.svg"
+    },{
+      "iri": "<http://www.cidoc-crm.org/extensions/crmsci/S21_Measurement>",
+      "label": "Measurement",
+      "thumbnail": "/assets/images/icons/structuredSearchIcons/measurement.svg"
+    },{
+      "iri": "<http://www.cidoc-crm.org/cidoc-crm/E5_Event>",
+      "label": "Event",
+      "thumbnail": "/assets/images/icons/structuredSearchIcons/event.svg"
+    },{
+      "iri": "<http://www.cidoc-crm.org/cidoc-crm/E69_Death>",
+      "label": "Death",
+      "thumbnail": "/assets/images/icons/structuredSearchIcons/death.svg"
+    },{
+      "iri": "<http://www.cidoc-crm.org/cidoc-crm/E6_Destruction>",
+      "label": "Destruction",
+      "thumbnail": "/assets/images/icons/structuredSearchIcons/destruction.svg"
+    },{
+      "iri": "<http://www.cidoc-crm.org/extensions/crmsci/S18_Alteration>",
+      "label": "Alteration",
+      "thumbnail": "/assets/images/icons/structuredSearchIcons/alteration.svg"
+    },{
+      "iri": "<http://www.cidoc-crm.org/extensions/crmsci/I12_Adopted_Belief>",
+      "label": "Adopted Belief ",
+      "thumbnail": "/assets/images/icons/structuredSearchIcons/adoptedBelief.svg"
+    },{
+      "iri": "<http://www.cidoc-crm.org/extensions/crminf/I12_Adopted_Belief>",
+      "label": "Adopted Belief",
+      "thumbnail": "/assets/images/icons/structuredSearchIcons/adoptedBelief.svg"
+    },
+    {
+      "iri": "<http://www.cidoc-crm.org/cidoc-crm/E35_Title>",
+      "label": "Title",
+      "thumbnail": "/assets/images/icons/structuredSearchIcons/title.svg"
+    },{
+      "iri": "<http://www.cidoc-crm.org/cidoc-crm/E65_Creation>",
+      "label": "Creation",
+      "thumbnail": "/assets/images/icons/structuredSearchIcons/creation.svg"
     }
     ],
     "relations": [{
-      "hasDomain": "<http://parthenos.d4science.org/CRMext/CRMpe.rdfs/PE24_Volatile_Dataset>",
-      "iri": "<https://www.lifewatchitaly.eu/resource/fr/Dataset_has_publication_Date>",
-      "hasRange": "<https://www.w3.org/2001/XMLSchema#date>",
-      "label": "was published during"
+      "hasDomain": "<http://www.cidoc-crm.org/cidoc-crm/E53_Place>",
+      "iri": "<http://www.cidoc-crm.org/cidoc-crm/P10_falls_within>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E53_Place>",
+      "label": "falls within"
     },{
-      "hasDomain": "<http://parthenos.d4science.org/CRMext/CRMpe.rdfs/PE24_Volatile_Dataset>",
-      "iri": "<https://www.lifewatchitaly.eu/resource/fr/Dataset_has_creation_Date>",
-      "hasRange": "<https://www.w3.org/2001/XMLSchema#date>",
-      "label": "created during"
+      "hasDomain": "<http://www.cidoc-crm.org/cidoc-crm/E53_Place>",
+      "iri": "<http://www.cidoc-crm.org/extensions/crmsci/O25_contains>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E53_Place>",
+      "label": "contains"
+    },{
+      "hasDomain": "<http://www.cidoc-crm.org/cidoc-crm/E53_Place>",
+      "iri": "<http://www.cidoc-crm.org/cidoc-crm/P139_has_alternative_form>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E53_Place>",
+      "label": "has alternative form"
+    },{
+      "hasDomain": "<http://www.cidoc-crm.org/cidoc-crm/E53_Place>",
+      "iri": "<http://www.cidoc-crm.org/extensions/crmsci/O12_has_dimension>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E54_Dimension>",
+      "label": "has dimension"
+    },{
+      "hasDomain": "<http://www.cidoc-crm.org/cidoc-crm/E53_Place>",
+      "iri": "<http://www.cidoc-crm.org/cidoc-crm/P2_has_type>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E55_Type>",
+      "label": "has type"
+    },{
+      "hasDomain": "<https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake>",
+      "iri": "<http://www.cidoc-crm.org/cidoc-crm/P2_has_type>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E55_Type>",
+      "label": "has type"
+    },{
+      "hasDomain": "<https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake>",
+      "iri": "<https://crm-eq.ics.forth.gr/ontology#PEQ5_has_documented_possible_timespan>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E52_Time-Span>",
+      "label": "has documented possible timespan"
+    },{
+      "hasDomain": "<https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake>",
+      "iri": "<http://www.cidoc-crm.org/cidoc-crm/P7_took_place_at>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E53_Place>",
+      "label": "took place at"
+    },{
+      "hasDomain": "<https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake>",
+      "iri": "<http://www.cidoc-crm.org/cidoc-crm/P4_has_time-span>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E52_Time-Span>",
+      "label": "has time span"
+    },{
+      "hasDomain": "<https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake>",
+      "iri": "<http://www.cidoc-crm.org/cidoc-crm/P70i_is_documented_in>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E73_Information_Object>",
+      "label": "is documented in"
+    },{
+      "hasDomain": "<https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake>",
+      "iri": "<https://crm-eq.ics.forth.gr/ontology#PEQ6_has_documented_possible_place>",
+      "hasRange": "<http://www.cidoc-crm.org/extensions/crminf/I12_Adopted_Belief>",
+      "label": "has documented possible place"
+    },{
+      "hasDomain": "<https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake>",
+      "iri": "<https://crm-eq.ics.forth.gr/ontology#PEQ6_has_documented_possible_place>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E53_Place>",
+      "label": "has documented possible place"
+    },{
+      "hasDomain": "<https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake>",
+      "iri": "<http://www.cidoc-crm.org/extensions/crmsci/O12_has_dimension>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E54_Dimension>",
+      "label": "has dimension"
+    },{
+      "hasDomain": "<https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake>",
+      "iri": "<https://crm-eq.ics.forth.gr/ontology#PEQ7_has_documented_possible_epicenter_place>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E53_Place>",
+      "label": "has documented possible epicenter place"
+    },{
+      "hasDomain": "<https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake>",
+      "iri": "<https://crm-eq.ics.forth.gr/ontology#PEQ8_has_documented_possible_dimension>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E54_Dimension>",
+      "label": "has documented possible dimension"
+    },{
+      "hasDomain": "<https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake>",
+      "iri": "<http://www.cidoc-crm.org/extensions/crmsci/O13_triggered>",
+      "hasRange": "<http://www.cidoc-crm.org/extensions/crmsci/S18_Alteration>",
+      "label": "triggered"
+    },{
+      "hasDomain": "<https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake>",
+      "iri": "<http://www.cidoc-crm.org/cidoc-crm/P70i_is_documented_in>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E31_Document>",
+      "label": "in document"
+    },{
+      "hasDomain": "<https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake>",
+      "iri": "<http://www.cidoc-crm.org/cidoc-crm/P8_took_place_on_or_within>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E53_Place>",
+      "label": "took place on or within"
+    },{
+      "hasDomain": "<https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake>",
+      "iri": "<http://www.cidoc-crm.org/extensions/crmsci/O13_triggered>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E69_Death>",
+      "label": "triggered"
+    },{
+      "hasDomain": "<https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake>",
+      "iri": "<http://www.cidoc-crm.org/extensions/crmsci/O13_triggered>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E6_Destruction>",
+      "label": "triggered"
+    },{
+      "hasDomain": "<https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake>",
+      "iri": "<http://www.cidoc-crm.org/extensions/crmsci/O24i_was_measured_by>",
+      "hasRange": "<http://www.cidoc-crm.org/extensions/crmsci/S21_Measurement>",
+      "label": "measured by"
+    },{
+      "hasDomain": "<https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake>",
+      "iri": "<http://www.cidoc-crm.org/extensions/crmsci/O24i_was_measured_by>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E54_Dimension>",
+      "label": "measured by"
+    },{
+      "hasDomain": "<https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake>",
+      "iri": "<http://www.cidoc-crm.org/extensions/crmsci/O13_triggered>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E5_Event>",
+      "label": "triggered"
+    },{
+      "hasDomain": "<https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake>",
+      "iri": "<http://www.cidoc-crm.org/cidoc-crm/P40i_was_observed_in>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E53_Place>",
+      "label": "was observed in"
+    },{
+      "hasDomain": "<https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake>",
+      "iri": "<http://www.cidoc-crm.org/cidoc-crm/P129i_is_subject_of>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E21_Person>",
+      "label": "is subject of"
+    },{
+      "hasDomain": "<https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake>",
+      "iri": "<http://www.cidoc-crm.org/cidoc-crm/P129i_is_subject_of>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E31_Document>",
+      "label": "is subject of"
+    },{
+      "hasDomain": "<https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake>",
+      "iri": "<https://crm-eq.ics.forth.gr/ontology#PEQ7_has_documented_possible_epicenter_place>",
+      "hasRange": "<http://www.cidoc-crm.org/extensions/crminf/I12_Adopted_Belief>",
+      "label": "has documented possible epicenter place"
+    },{
+      "hasDomain": "<https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake>",
+      "iri": "<http://www.cidoc-crm.org/cidoc-crm/P70i_is_documented_in>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E21_Person>",
+      "label": "has documented possible epicenter place"
+    },{
+      "hasDomain": "<https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake>",
+      "iri": "<http://www.cidoc-crm.org/cidoc-crm/P129i_is_subject_of>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E31_Document>",
+      "label": "is subject of"
+    },{
+      "hasDomain": "<https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake>",
+      "iri": "<http://www.cidoc-crm.org/extensions/crminf/J13_adopted_interpretation>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E69_Death>",
+      "label": "adopted interpretation of"
+    },{
+      "hasDomain": "<https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake>",
+      "iri": "<http://www.cidoc-crm.org/cidoc-crm/P45_consists_of>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E5_Event>",
+      "label": "adopted interpretation of"
+    },{
+      "hasDomain": "<https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake>",
+      "iri": "<http://www.cidoc-crm.org/cidoc-crm/P40_observed_dimension>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E54_Dimension>",
+      "label": "observed dimension"
+    },{
+      "hasDomain": "<https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake>",
+      "iri": "<http://www.cidoc-crm.org/cidoc-crm/P13_destroyed>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E5_Event>",
+      "label": "destroyed"
+    },{
+      "hasDomain": "<https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake>",
+      "iri": "<http://www.cidoc-crm.org/cidoc-crm/P2_has_type>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E55_Type>",
+      "label": "has type"
+    },{
+      "hasDomain": "<http://www.cidoc-crm.org/cidoc-crm/E21_Person>",
+      "iri": "<http://www.cidoc-crm.org/cidoc-crm/P2_has_type>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E55_Type>",
+      "label": "has type"
+    },{
+      "hasDomain": "<http://www.cidoc-crm.org/cidoc-crm/E21_Person>",
+      "iri": "<http://www.cidoc-crm.org/cidoc-crm/P7i_witnessed>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E6_Destruction>",
+      "label": "witnessed"
+    },{
+      "hasDomain": "<http://www.cidoc-crm.org/cidoc-crm/E21_Person>",
+      "iri": "<http://www.cidoc-crm.org/extensions/crmsci/O8_observed>",
+      "hasRange": "<https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake>",
+      "label": "observed"
+    },{
+      "hasDomain": "<http://www.cidoc-crm.org/cidoc-crm/E31_Document>",
+      "iri": "<http://www.cidoc-crm.org/cidoc-crm/P102_has_title>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E35_Title>",
+      "label": "has title"
+    },{
+      "hasDomain": "<http://www.cidoc-crm.org/cidoc-crm/E31_Document>",
+      "iri": "<http://www.cidoc-crm.org/cidoc-crm/P135i_was_created_by>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E65_Creation>",
+      "label": "was created by"
+    },{
+      "hasDomain": "<http://www.cidoc-crm.org/cidoc-crm/E31_Document>",
+      "iri": "<http://www.cidoc-crm.org/cidoc-crm/P4_has_time-span>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E52_Time-Span>",
+      "label": "has time span"
+    },{
+      "hasDomain": "<http://www.cidoc-crm.org/cidoc-crm/E31_Document>",
+      "iri": "<http://www.cidoc-crm.org/cidoc-crm/P135i_was_created_by>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E21_Person>",
+      "label": "was created by"
+    },{
+      "hasDomain": "<http://www.cidoc-crm.org/cidoc-crm/E31_Document>",
+      "iri": "<http://www.cidoc-crm.org/cidoc-crm/P14_carried_out_by>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E21_Person>",
+      "label": "carried out by"
+    },{
+      "hasDomain": "<http://www.cidoc-crm.org/cidoc-crm/E31_Document>",
+      "iri": "<http://www.cidoc-crm.org/cidoc-crm/P139_has_alternative_form>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E31_Document>",
+      "label": "has alternative form"
+    },{
+      "hasDomain": "<http://www.cidoc-crm.org/cidoc-crm/E31_Document>",
+      "iri": "<http://www.cidoc-crm.org/cidoc-crm/P10i_contains>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E73_Information_Object>",
+      "label": "contains"
+    },{
+      "hasDomain": "<http://www.cidoc-crm.org/cidoc-crm/E31_Document>",
+      "iri": "<http://www.cidoc-crm.org/cidoc-crm/P70i_is_documented_in>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E31_Document>",
+      "label": "is documented in"
+    },{
+      "hasDomain": "<http://www.cidoc-crm.org/cidoc-crm/E31_Document>",
+      "iri": "<http://www.cidoc-crm.org/extensions/crminf/J7_is_based_on_evidence_from>",
+      "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E21_Person>",
+      "label": "is based on evidence from"
     }
     ]
   }
