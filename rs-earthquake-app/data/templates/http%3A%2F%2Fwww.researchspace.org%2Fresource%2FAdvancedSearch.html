@@ -11,17 +11,20 @@
         categories='[[> rsp:SearchCategories]]' 
         relations='[[> rsp:SearchRelations]]' 
         search-profile='[[> rsp:SearchProfile]]'>
-        
         <!-- Query Builder -->
         <semantic-search-query-builder id="semantic-query-builder"
           relation-template='<div style="margin-left: {{order.value}}px">{{label}}</div>'
-          category-view-template="{{>category-template}}">
+          category-view-template="{{>category-template}}"
+          query='SELECT ?suggestion ?label WHERE {
+          ?suggestion rdfs:label ?label .
+          FILTER (bif:contains(?label, ?__value__)).
+          } ORDER BY ?label LIMIT 10'>
           <template id="category-template">
             <div style="display: flex; align-items: center;">
               <div class="semantic-search__class-selector-item">
                 <img src="{{thumbnail}}">
               </div>
-              <span><mp-label iri="{{category.value}}"></mp-label></span>
+              <span><mp-label iri="{{iri.value}}"></mp-label></span>
             </div>
           </template>
         </semantic-search-query-builder>
