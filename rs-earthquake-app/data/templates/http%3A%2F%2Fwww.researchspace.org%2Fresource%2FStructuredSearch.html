@@ -2,9 +2,13 @@
    <div id="structured-search">
 
       <semantic-search categories='[[> rsp:SearchCategories]]' relations='[[> rsp:SearchRelations]]'
-         search-profile='[[> rsp:SearchProfile]]' limit="1000">
+         search-profile='[[> rsp:SearchProfile]]' limit="1000" >
 
-         <semantic-search-query-builder></semantic-search-query-builder>
+         <semantic-search-query-builder resource-selector='{
+                     "query": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> SELECT DISTINCT ?suggestion ?label WHERE { ?subject a ?__domain__. ?suggestion a ?__range__. ?suggestion rdfs:label ?label. FILTER regex(?label, ?__token__, \"i\") }",
+                     "suggestionTupleTemplate": "<span title=\"{{label.value}}\">{{label.value}} </span>",
+                     "noSuggestionsTemplate": "<div class=\"suggestion-no-matches\">no matches found</div>"
+                   }'></semantic-search-query-builder>          
          <semantic-search-facet-store values-limit="1000" id='facet'></semantic-search-facet-store>
          <div class="bottom-section" data-flex-layout="row stretch-stretch">
             <bs-col lg="3" md="4" sm="5" class="fade-in-fwd filters-container" style="margin-top: 8px"
