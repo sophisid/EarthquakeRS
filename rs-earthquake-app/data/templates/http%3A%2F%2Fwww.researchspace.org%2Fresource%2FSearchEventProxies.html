@@ -1,0 +1,7 @@
+<mp-event-trigger id='guided-tour-start' type='GuidedTour.Start' targets='["guided-tour"]'>
+  <button class="help-button fa fa-question"></button>
+</mp-event-trigger>
+
+<mp-event-proxy id='guided-tour-run' on-event-type='Component.Loaded' on-event-source='semantic-search' 
+  proxy-event-type='GuidedTour.RunIfNotSeen' proxy-targets='["guided-tour"]'>
+</mp-event-proxy>

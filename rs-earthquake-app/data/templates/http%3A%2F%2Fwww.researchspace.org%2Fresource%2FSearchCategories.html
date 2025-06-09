@@ -29,6 +29,20 @@
             FILTER(?literal <= ?__numericRangeEndValue__) .
            }"
         }
-      ]
+      ],
+      "<http://www.w3.org/2001/XMLSchema#string>": [{
+  "kind": "text",
+  "queryPattern": "
+    $subject ?__relation__ ?literal .
+    FILTER(CONTAINS(LCASE(STR(?literal)), LCASE(?__textValue__)))
+  "
+}],
+      "<http://www.w3.org/2001/XMLSchema#boolean>": [{
+  "kind": "boolean",
+  "queryPattern": "
+    $subject ?__relation__ ?literal .
+    FILTER(?literal = ?__booleanValue__)
+  "
+}]
   
    }
