@@ -12,7 +12,12 @@
         relations='[[> rsp:SearchRelations]]' 
         search-profile='[[> rsp:SearchProfile]]'>
         <!-- Query Builder -->
-        <semantic-search-query-builder id="semantic-query-builder"
+        <semantic-search-query-builder
+          resource-selector='{
+            "query": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> SELECT DISTINCT ?suggestion ?label WHERE { ?subject a ?__domain__. ?suggestion a ?__range__. ?suggestion rdfs:label ?label. FILTER regex(?label, ?__token__, \"i\") }",
+            "suggestionTupleTemplate": "<span title=\"{{label.value}}\">{{label.value}} </span>",
+            "noSuggestionsTemplate": "<div class=\"suggestion-no-matches\">no matches found</div>"
+          }'
           relation-template='<div style="margin-left: {{order.value}}px">{{label}}</div>'
           category-view-template="{{>category-template}}"
           query='SELECT ?suggestion ?label WHERE {
@@ -45,7 +50,7 @@
               <semantic-search-facet-breadcrumbs></semantic-search-facet-breadcrumbs>
               
               <!-- Result Count -->
-              <semantic-search-result>
+              <semantic-search-result id="result-count">
                 <semantic-query id="count-results" query='SELECT (COUNT(DISTINCT ?subject) as ?count) WHERE { }' 
                   template="{{>currentResultCount}}">
                   <template id="currentResultCount">
@@ -65,7 +70,7 @@
               <bs-tabs default-active-key="1" id="search-results" animation="false">
                 <!-- List View -->
                 <bs-tab event-key="1" title="List">
-                  <semantic-search-result>
+                  <semantic-search-result id="list-view-result">
                     <div class="row">
                       <div class="col-md-12">
                         <div class="result-list">
@@ -124,7 +129,7 @@
                 
                 <!-- Table View (Fixed Query) -->
                 <bs-tab event-key="2" title="Table">
-                  <semantic-search-result>
+                  <semantic-search-result id="table-view-result">
                     <semantic-table id="table-result"
                       query='
                       SELECT ?subject ?label ?typeLabel ?placeLabel ?date ?magnitude WHERE {
@@ -165,20 +170,25 @@
                 
                 <!-- Map View -->
                 <bs-tab event-key="3" title="Map">
-                  <semantic-search-result>
+                  <semantic-search-result id="map-view-result">
                     <div style="height: 600px;">
-                      <mp-event-based-map id="map-view" query='
-                        SELECT ?subject ?label ?lat ?long ?magnitude WHERE {
+                      <mp-event-based-map id="map-view" 
+                        query='
+                        SELECT ?subject ?label ?lat ?long (COALESCE(?magnitude, "0") as ?magnitudeValue) WHERE {
                           ?subject a <https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake> .
                           ?subject rdfs:label ?label .
-                          ?subject <http://www.cidoc-crm.org/cidoc-crm/P53_has_former_or_current_location> ?place .
+                          ?subject <http://www.cidoc-crm.org/cidoc-crm/P7_took_place_at> ?place .
                           ?place <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
                           ?place <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .
+                          FILTER(BOUND(?lat) && BOUND(?long))
                           OPTIONAL { 
                             ?subject <https://crm-eq.ics.forth.gr/ontology#EQ_magnitude> ?magnitude .
                             FILTER(ISNUMERIC(?magnitude))
                           }
-                        }' map-zoom="2" colored-by="magnitude">
+                        }' 
+                        map-zoom="2" 
+                        color-property="magnitudeValue"
+                        popup-template="<div><b>{{label.value}}</b><br>Magnitude: {{magnitudeValue.value}}</div>">
                       </mp-event-based-map>
                     </div>
                   </semantic-search-result>
@@ -186,7 +196,7 @@
                 
                 <!-- Timeline View -->
                 <bs-tab event-key="4" title="Timeline">
-                  <semantic-search-result>
+                  <semantic-search-result id="timeline-view-result">
                     <div style="height: 400px;">
                       <semantic-timeline id="timeline-view"
                         instance-base-iri="http://www.example.org/timeline"
@@ -213,14 +223,14 @@
               <!-- Action Buttons -->
               <hr />
               <div class="semantic-search-results-actions pull-right">
-                <semantic-search-result>
+                <semantic-search-result id="csv-download-result">
                   <mp-sparql-download id="csv-result" header="text/csv" filename="earthquake-results.csv">
                     <button class="btn btn-default" style="margin-right: 10px">
                       Download CSV
                     </button>
                   </mp-sparql-download>
                 </semantic-search-result>
-                <semantic-search-result>
+                <semantic-search-result id="json-download-result">
                   <mp-sparql-download id="json-result" header="application/sparql-results+json" 
                     filename="earthquake-results.json">
                     <button class="btn btn-default" style="margin-right: 10px">
@@ -230,17 +240,21 @@
                 </semantic-search-result>
               </div>
               <div class="semantic-search-results-actions">
-                <semantic-search-action-use-result-in-extended-search>
-                  <button class="btn btn-default" style="margin-right: 10px">
-                    Use in Search
-                  </button>
-                </semantic-search-action-use-result-in-extended-search>
-                <mp-anonymous-hidden>
-                  <semantic-search-action-save-set-result id="save-set-result-action">
+                <semantic-search-result id="use-in-search-result">
+                  <semantic-search-action-use-result-in-extended-search>
                     <button class="btn btn-default" style="margin-right: 10px">
-                      Save As Set
+                      Use in Search
                     </button>
-                  </semantic-search-action-save-set-result>
+                  </semantic-search-action-use-result-in-extended-search>
+                </semantic-search-result>
+                <mp-anonymous-hidden>
+                  <semantic-search-result id="save-set-result">
+                    <semantic-search-action-save-set-result id="save-set-result-action">
+                      <button class="btn btn-default" style="margin-right: 10px">
+                        Save As Set
+                      </button>
+                    </semantic-search-action-save-set-result>
+                  </semantic-search-result>
                 </mp-anonymous-hidden>
               </div>
             </bs-col>
@@ -294,273 +308,8 @@
   </div>
 </div>
 
-<!-- Debug Panel -->
-<div class="panel panel-default" style="margin-top: 20px;">
-  <div class="panel-heading">Debug Information</div>
-  <div class="panel-body">
-    <h4>Test Query</h4>
-    <semantic-query
-      query='
-        SELECT ?subject ?label ?place ?placeLabel WHERE {
-          ?subject a <https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake> .
-          ?subject rdfs:label ?label .
-          ?subject <http://www.cidoc-crm.org/cidoc-crm/P53_has_former_or_current_location> ?place .
-          ?place rdfs:label ?placeLabel .
-          FILTER(CONTAINS(LCASE(?placeLabel), "heraklion"))
-        } LIMIT 10
-      '
-      template="{{>debugTemplate}}">
-      <template id="debugTemplate">
-        <div>
-          <h5>Results for earthquakes in Heraklion:</h5>
-          {{#if bindings.length}}
-            <ul>
-              {{#each bindings}}
-                <li>
-                  <strong>{{label.value}}</strong> - Location: {{placeLabel.value}}
-                </li>
-              {{/each}}
-            </ul>
-          {{else}}
-            <p>No earthquakes found with location containing "Heraklion". This could indicate:</p>
-            <ul>
-              <li>No such data exists in the database</li>
-              <li>The location name might be spelled differently</li>
-              <li>The relation path used is incorrect</li>
-            </ul>
-          {{/if}}
-        </div>
-      </template>
-    </semantic-query>
-    
-    <h4>Check Place Data</h4>
-    <semantic-query
-      query='
-        SELECT ?place ?label WHERE {
-          ?place a <http://www.cidoc-crm.org/cidoc-crm/E53_Place> .
-          ?place rdfs:label ?label .
-        } LIMIT 20
-      '
-      template="{{>placeDebugTemplate}}">
-      <template id="placeDebugTemplate">
-        <div>
-          <h5>Available places:</h5>
-          {{#if bindings.length}}
-            <ul>
-              {{#each bindings}}
-                <li>{{label.value}}</li>
-              {{/each}}
-            </ul>
-          {{else}}
-            <p>No places found in database.</p>
-          {{/if}}
-        </div>
-      </template>
-    </semantic-query>
 
-    <h4>Test Relationship Path</h4>
-    <semantic-query
-      query='
-        SELECT ?relation ?label WHERE {
-          <https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake> ?p ?relation .
-          ?relation rdfs:label ?label .
-          FILTER(CONTAINS(LCASE(STR(?relation)), "place"))
-        } LIMIT 10
-      '
-      template="{{>relationTemplate}}">
-      <template id="relationTemplate">
-        <div>
-          <h5>Available place-related relations for Earthquake entity:</h5>
-          {{#if bindings.length}}
-            <ul>
-              {{#each bindings}}
-                <li>{{label.value}} - <code>{{relation.value}}</code></li>
-              {{/each}}
-            </ul>
-          {{else}}
-            <p>No place relations found. This might indicate:</p>
-            <ul>
-              <li>The ontology doesn't define a direct relation between Earthquake and Place</li>
-              <li>The relation might have a different name or path</li>
-              <li>There might be an intermediate entity between Earthquake and Place</li>
-            </ul>
-          {{/if}}
-        </div>
-      </template>
-    </semantic-query>
 
-    <h4>Test Direct Triples</h4>
-    <semantic-query
-      query='
-        SELECT ?s ?p ?o WHERE {
-          ?s ?p ?o .
-          ?s a <https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake> .
-          ?o a <http://www.cidoc-crm.org/cidoc-crm/E53_Place> .
-        } LIMIT 5
-      '
-      template="{{>triplesTemplate}}">
-      <template id="triplesTemplate">
-        <div>
-          <h5>Direct connections between Earthquakes and Places:</h5>
-          {{#if bindings.length}}
-            <ul>
-              {{#each bindings}}
-                <li>{{s.value}} -&gt; {{p.value}} -&gt; {{o.value}}</li>
-              {{/each}}
-            </ul>
-          {{else}}
-            <p>No direct connections found between Earthquake and Place entities.</p>
-            <p>Try to explore the data structure further to find indirect connections.</p>
-          {{/if}}
-        </div>
-      </template>
-    </semantic-query>
-  </div>
-</div>
-
-<div class="well">
-  <h4>Test Direct Query</h4>
-  <button id="direct-query-btn" class="btn btn-primary">Run "Earthquakes in Heraklion" Query</button>
-  
-  <div id="direct-results" style="margin-top: 15px;"></div>
-
-  <script>
-    document.getElementById('direct-query-btn').addEventListener('click', function() {
-      // Alert to confirm click is captured
-      alert("Button clicked - starting query process");
-      
-      // Log to console
-      console.log("Direct query button clicked");
-      
-      // This simulates your desired query
-      const directQuery = `
-        SELECT ?subject ?label ?placeLabel ?date ?magnitude WHERE {
-          ?subject a <https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake> .
-          ?subject rdfs:label ?label .
-          ?subject <http://www.cidoc-crm.org/cidoc-crm/P53_has_former_or_current_location> ?place .
-          ?place rdfs:label ?placeLabel .
-          FILTER(CONTAINS(LCASE(?placeLabel), "heraklion"))
-          OPTIONAL {
-            ?subject <http://www.cidoc-crm.org/cidoc-crm/P4_has_time-span> ?timespan .
-            ?timespan <http://www.cidoc-crm.org/cidoc-crm/P82a_begin_of_the_begin> ?date .
-          }
-          OPTIONAL { 
-            ?subject <https://crm-eq.ics.forth.gr/ontology#EQ_magnitude> ?magnitude .
-          }
-        }`;
-      
-      console.log("Query to execute:", directQuery);
-      
-      // Display the raw query in the results area
-      document.getElementById('direct-results').innerHTML = 
-        `<div class="alert alert-info">Attempting to run query...</div>
-         <pre>${directQuery}</pre>`;
-      
-      // Check if platformApi exists
-      if (typeof platformApi === 'undefined') {
-        console.error("platformApi is not defined");
-        document.getElementById('direct-results').innerHTML += 
-          `<div class="alert alert-danger">Error: platformApi is not defined. This might be because:<br>
-           1. The ResearchSpace API is not properly loaded<br>
-           2. There's a naming issue with the API<br>
-           Try running the query directly through the SPARQL endpoint.</div>`;
-        
-        // Let's try an alternative approach with fetch if available
-        tryAlternativeQuery();
-        return;
-      }
-      
-      // Use platform API to execute the query directly
-      try {
-        console.log("Calling platformApi.sparqlQuery...");
-        
-        platformApi.sparqlQuery(directQuery).then(results => {
-          console.log("Query results:", results);
-          let html = '<div class="alert alert-success">Query executed successfully!</div>';
-          html += '<h5>Results:</h5>';
-          
-          if (results.results.bindings && results.results.bindings.length) {
-            html += '<ul>';
-            results.results.bindings.forEach(binding => {
-              console.log("Result item:", binding);
-              html += `<li><b>${binding.label?.value || 'No label'}</b> - Location: ${binding.placeLabel?.value || 'Unknown location'}</li>`;
-            });
-            html += '</ul>';
-          } else {
-            console.log("No results returned from query");
-            html += '<div class="alert alert-warning">No results found</div>';
-          }
-          
-          document.getElementById('direct-results').innerHTML = html;
-        }).catch(err => {
-          console.error("API query error:", err);
-          document.getElementById('direct-results').innerHTML += 
-            `<div class="alert alert-danger">Error: ${err.message}<br>Stack: ${err.stack}</div>`;
-        });
-      } catch (e) {
-        console.error("Exception calling API:", e);
-        document.getElementById('direct-results').innerHTML += 
-          `<div class="alert alert-danger">Exception: ${e.message}<br>Stack: ${e.stack}</div>`;
-      }
-      
-      function tryAlternativeQuery() {
-        // Try a simpler approach using fetch if available
-        if (typeof fetch !== 'undefined') {
-          console.log("Attempting alternative query with fetch...");
-          
-          // Create a simplified query just to test
-          const simpleQuery = `
-            SELECT ?place ?label WHERE {
-              ?place a <http://www.cidoc-crm.org/cidoc-crm/E53_Place> .
-              ?place rdfs:label ?label .
-            } LIMIT 5`;
-          
-          const endpoint = '/sparql';
-          
-          document.getElementById('direct-results').innerHTML += 
-            `<div>Trying alternative query with endpoint: ${endpoint}</div>`;
-          
-          fetch(endpoint, {
-            method: 'POST',
-            headers: {
-              'Accept': 'application/sparql-results+json',
-              'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: 'query=' + encodeURIComponent(simpleQuery)
-          })
-          .then(response => {
-            if (!response.ok) {
-              throw new Error(`HTTP error ${response.status}`);
-            }
-            return response.json();
-          })
-          .then(data => {
-            console.log("Alternative query results:", data);
-            document.getElementById('direct-results').innerHTML += 
-              `<div class="alert alert-success">Alternative query worked!</div>`;
-          })
-          .catch(error => {
-            console.error("Alternative query error:", error);
-            document.getElementById('direct-results').innerHTML += 
-              `<div class="alert alert-danger">Alternative query error: ${error.message}</div>`;
-          });
-        } else {
-          document.getElementById('direct-results').innerHTML += 
-            `<div class="alert alert-danger">Both platformApi and fetch are unavailable. Cannot run queries.</div>`;
-        }
-      }
-    });
-    
-    // Add a simpler test button for just checking if button clicks work at all
-    document.write(`
-      <div style="margin-top: 10px">
-        <button onclick="alert('Simple test button works!');" class="btn btn-info">
-          Test Button Click
-        </button>
-      </div>
-    `);
-  </script>
-</div>
 
 <style>
   .navbar-default {
@@ -587,45 +336,3 @@
   }
 </style>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Debug category selection clicks
-    document.querySelectorAll('.QueryBuilder--categorySelectionItem').forEach(function(item) {
-      item.addEventListener('click', function() {
-        console.log('Category clicked:', this.innerText);
-        console.log('Element:', this);
-      });
-    });
-    
-    // Debug relation selection clicks
-    document.querySelectorAll('.QueryBuilder--relationSelector').forEach(function(item) {
-      item.addEventListener('click', function() {
-        console.log('Relation clicked:', this.innerText);
-      });
-    });
-    
-    // Debug place selection clicks
-    document.querySelector('.map-info').addEventListener('click', function(e) {
-      console.log('Map clicked:', e.target);
-    });
-    
-    console.log('Debug listeners added');
-  });
-  
-  // Hook into the search button after page loads
-  document.addEventListener('DOMContentLoaded', function() {
-    // Give the UI time to render
-    setTimeout(function() {
-      const searchBtn = document.querySelector('.search-button');
-      if (searchBtn) {
-        console.log('Search button found, adding alert');
-        searchBtn.addEventListener('click', function() {
-          alert('Search button clicked!');
-          console.log('Search button clicked');
-        });
-      } else {
-        console.error('Search button not found');
-      }
-    }, 1000);
-  });
-</script>

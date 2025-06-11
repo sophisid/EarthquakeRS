@@ -25,7 +25,7 @@
                <div data-flex-self="md-full">
                   <semantic-search-facet-breadcrumbs></semantic-search-facet-breadcrumbs>
 
-                  <semantic-search-result>
+                  <semantic-search-result id="structured-search-result-count">
                      <semantic-query id="count-artist" query='SELECT (COUNT( DISTINCT ?subject) as ?count) WHERE {
                                  }' template="{{>currentResultCount}}">
                         <template id="currentResultCount">
@@ -50,7 +50,7 @@
                   </semantic-search-result>
                   <bs-tabs unmount-on-exit=true id='search-results' animation=false>
                      <bs-tab event-key="1" title="Grid">
-                        <semantic-search-result>
+                        <semantic-search-result id="grid-view-result">
                            <semantic-table id='grid-result' query='
                                                    SELECT DISTINCT ?subject ?label (GROUP_CONCAT(DISTINCT ?typeLabel;SEPARATOR=", ")as ?typeLabel) WHERE {
                                                      ?subject a ?type.
@@ -73,7 +73,7 @@
                         </semantic-search-result>
                      </bs-tab>
                      <bs-tab event-key="2" title="Table">
-                        <semantic-search-result>
+                        <semantic-search-result id="table-view-result">
                            <semantic-table id='table-result' query=' SELECT DISTINCT ?subject ?label (GROUP_CONCAT(DISTINCT ?typeLabel;SEPARATOR=", ")as ?typeLabel) WHERE {
                                                      ?subject a ?type.
                                                        ?subject rdfs:label ?label.
@@ -92,7 +92,7 @@
                         </semantic-search-result>
                      </bs-tab>
                      <bs-tab event-key="3" title="Graph">
-                        <semantic-search-result>
+                        <semantic-search-result id="graph-view-result">
                            <semantic-graph id="graph-result" height='600px' query='
                                                        CONSTRUCT {
                                                          ?x ?y ?z

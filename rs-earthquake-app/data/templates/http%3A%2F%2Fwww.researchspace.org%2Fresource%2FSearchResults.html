@@ -53,7 +53,7 @@
               <button class="btn btn-default">Save Search</button>
           </semantic-search-action-save-search-result>
         </mp-anonymous-hidden>
-        <semantic-search-result>
+        <semantic-search-result id="csv-download-result">
           <mp-sparql-download id='csv-result' query="SELECT ?subject WHERE { }"
                               header="text/csv"
                               filename="csv-result.csv"
@@ -61,7 +61,7 @@
               <button class="btn btn-default btn-textAndIcon"> <rs-icon icon-type="rounded" icon-name="file_download" symbol="true"></rs-icon> CSV</button>
           </mp-sparql-download>
         </semantic-search-result>
-        <semantic-search-result>
+        <semantic-search-result id="json-download-result">
           <mp-sparql-download id='json-result' query="SELECT ?subject WHERE { }"
                               header="application/sparql-results+json"
                               filename="json-result.json"
@@ -117,7 +117,7 @@
             
             <bs-tab-content animation="true" mount-on-enter="true" >
               <bs-tab-pane event-key="grid">
-                <semantic-search-result>
+                <semantic-search-result id="grid-view-result">
                   <semantic-table
                   id='semantic-search-result-grid'
                   query='
@@ -148,7 +148,7 @@
                 </semantic-search-result>
               </bs-tab-pane>
               <bs-tab-pane event-key="table">
-                <semantic-search-result> 
+                <semantic-search-result id="table-view-result">
                   <semantic-table id='semantic-search-result-table'
                                   query='SELECT DISTINCT ?subject ?iri ?typeLabel WHERE {
                                           BIND(?subject as ?iri) .
