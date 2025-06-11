@@ -46,7 +46,7 @@
         </semantic-search-form-query>
 
         <semantic-search-result-holder>
-          <semantic-search-result>
+           <semantic-search-result id='{{viewId}}-newVocabulary-search-result'>
             <semantic-query id='new-systemVocabulary-query-form' 
                             query='SELECT ?vocabularyLabel ?vocabulary ?vocabularyDescription ?exists ?viewId WHERE {
                                       BIND("{{viewId}}" as ?viewId)
@@ -355,7 +355,7 @@
 
         <div style="margin-top: 20px;" class="vocabulary-table">
           <semantic-search-result-holder>
-              <semantic-search-result>
+              <semantic-search-result id='{{viewId}}-vocabulary-search-result'>
                 
                 <semantic-table id='vocabulary-table'
                                 query='SELECT DISTINCT ?vocabulary ?vocabularyLabel ?vocabularyDescription ?managedByResourceConfig ?resourceConfigLabel
