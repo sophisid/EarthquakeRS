@@ -12,21 +12,18 @@
          <semantic-search-facet-store values-limit="1000" id='facet'></semantic-search-facet-store>
          <div class="bottom-section" data-flex-layout="row stretch-stretch">
             <bs-col lg="3" md="4" sm="5" class="fade-in-fwd filters-container" style="margin-top: 8px"
-               id="artwork-filter-search">
+               id="eq-filter-search">
                <bs-panel id="filter-panel" header="Filters" collapsible="true" default-expanded="true">
                   <semantic-search-facet open-by-default='true' sortby='count-desc' prefetch-labels="false"
                      facet-values-threshold="1000"></semantic-search-facet>
                </bs-panel>
             </bs-col>
             <semantic-search-result-holder>
-               <style>
-                
-               </style>
                <div data-flex-self="md-full">
                   <semantic-search-facet-breadcrumbs></semantic-search-facet-breadcrumbs>
 
                   <semantic-search-result>
-                     <semantic-query id="count-artist" query='SELECT (COUNT( DISTINCT ?subject) as ?count) WHERE {
+                     <semantic-query id="count-eq" query='SELECT (COUNT( DISTINCT ?subject) as ?count) WHERE {
                                  }' template="{{>currentResultCount}}">
                         <template id="currentResultCount">
                            <span>
@@ -52,10 +49,11 @@
                      <bs-tab event-key="1" title="Grid">
                         <semantic-search-result>
                            <semantic-table id='grid-result' query='
-                                                   SELECT DISTINCT ?subject ?label (GROUP_CONCAT(DISTINCT ?typeLabel;SEPARATOR=", ")as ?typeLabel) WHERE {
+                                                   SELECT DISTINCT ?subject ?typeLabel WHERE {
                                                      ?subject a ?type.
-                                                     ?type rdfs:label ?typeLabel.
-                                                   } GROUP BY ?subject ?label LIMIT 10000'
+                                                     OPTIONAL { ?type rdfs:label ?typeLabel. }
+                                                      
+                                                   }LIMIT 10000'
                               tuple-template='{{>tupleTemplate}}' options='{"showFilter":true}' prefetch-labels="false"
                               no-result-template='No results found'>
                               <template id='tupleTemplate'>
@@ -64,7 +62,7 @@
                                     <div class="panel-footer"
                                        style="position: relative;display: flex; flex-direction: column; align-items: center;">
                                        <h3><semantic-link class="grid-resource-link"
-                                             iri="{{subject.value}}">{{label.value}}</semantic-link></h3>
+                                             iri="{{subject.value}}"></semantic-link></h3>
                                        <h6 style="font-weight: 100;">{{typeLabel.value}}</h6>
                                     </div>
                                  </div>
