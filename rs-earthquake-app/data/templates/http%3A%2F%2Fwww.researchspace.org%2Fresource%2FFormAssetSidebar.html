@@ -14,7 +14,8 @@
                                                             ?image a ?type .
                                                             FILTER(?type in (rs:EX_Digital_Image, rs:EX_Digital_Image_Region))
                                                         }'
-                                                then='{{> then}}'>
+                                                then='{{> then}}'
+                                                else='No img available'>
 
                                     <template id='then'>
                                         <div class="form-tabs-subtabs-content--title-actions">
@@ -381,7 +382,8 @@
                                                                         ?image a ?type .
                                                                         FILTER(?type in (rs:EX_Digital_Image, rs:EX_Digital_Image_Region))
                                                                     }'
-                                                            then='{{> then}}'>
+                                                            then='{{> then}}'
+                                                            else='No img available'>
 
                                                 <template id='then'>
                                                     <div class="form-tabs-subtabs-content--title-actions">
@@ -807,7 +809,8 @@
                                                                             ?signatureImage crm:P138_represents ?signature . 
                                                                         }'
 
-                                                                template='{{> signatureImage}}'>
+                                                                template='{{> signatureImage}}'
+                                                                no-result-template="No img found">
 
                                                     <template id='signatureImage'>
                                                         <div class="form-tabs-subtabs-content--title-actions">

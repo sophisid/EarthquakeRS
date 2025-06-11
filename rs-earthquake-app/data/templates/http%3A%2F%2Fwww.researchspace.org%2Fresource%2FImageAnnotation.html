@@ -36,7 +36,8 @@
                               BIND(<{{iri}}> as ?resource) .
                             }
                           }'
-                  template='{{> template}}'>
+                  template='{{> template}}'
+                  no-result-template="No img found">
     <template id='template'>
       {{#> rsp:ImageAnnotationTemplate viewId=dashboardId insideForm=insideForm recordType=recordType}}
         <mp-event-target-template-render id='{{viewId}}-image-viewer-render-area' template='{{> template}}'>

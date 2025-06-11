@@ -94,11 +94,7 @@
             </template>
 
             <template id='else'>
-              <mp-resource-thumbnail fixed-key='image-{{imgUrl}}' iri='{{imgUrl}}' class="resource-card__thumbnail">
-                <mp-resource-thumbnail-fallback>
-                  [[> defaultCardIcon]]
-                </mp-resource-thumbnail-fallback>
-              </mp-resource-thumbnail>
+             <span>no img found</span>
             </template>
           </semantic-if>
         {{else}}
