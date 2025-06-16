@@ -1,3 +1,4 @@
+
 <div id="earthquake-search">
   <ol class="page-breadcrumb">
     <li><a title="Home" href="/resource/start">Home</a></li>
@@ -45,7 +46,7 @@
           </bs-col>
           
           <!-- Results Area -->
-          <semantic-search-result-holder>
+          <semantic-search-result-holder id="search-results-holder">
             <bs-col lg="9" md="8" sm="7">
               <semantic-search-facet-breadcrumbs></semantic-search-facet-breadcrumbs>
               
@@ -67,17 +68,18 @@
               </semantic-search-result>
               
               <!-- Results Tabs -->
-              <bs-tabs default-active-key="1" id="search-results" animation="false">
-                <!-- List View -->
+              <!-- <bs-tabs default-active-key="1" id="search-results" animation="false">
+                
                 <bs-tab event-key="1" title="List">
                   <semantic-search-result id="list-view-result">
                     <div class="row">
                       <div class="col-md-12">
                         <div class="result-list">
                           <div class="list-template">
-                            <!-- ADDED MISSING QUERY HERE -->
+                            
                             <semantic-table 
                               query='
+                              PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
                               SELECT ?subject ?label ?typeLabel ?placeLabel ?date ?magnitude WHERE {
                                 ?subject rdfs:label ?label .
                                 OPTIONAL { 
@@ -125,7 +127,7 @@
                       </div>
                     </div>
                   </semantic-search-result>
-                </bs-tab>
+                </bs-tab> -->
                 
                 <!-- Table View (Fixed Query) -->
                 <bs-tab event-key="2" title="Table">
@@ -174,6 +176,7 @@
                     <div style="height: 600px;">
                       <mp-event-based-map id="map-view" 
                         query='
+                        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
                         SELECT ?subject ?label ?lat ?long (COALESCE(?magnitude, "0") as ?magnitudeValue) WHERE {
                           ?subject a <https://crm-eq.ics.forth.gr/ontology#EQ1_Earthquake> .
                           ?subject rdfs:label ?label .
@@ -334,5 +337,6 @@
     cursor: pointer;
     z-index: 1000;
   }
+  
 </style>
 
