@@ -57,7 +57,7 @@
                 </div>
             </bs-tab>
             [[/if]]
-            <bs-tab title='Raw data' event-key='raw-data' mount-on-enter=true class="rawdata-tab">
+            <bs-tab title='Information' event-key='raw-data' mount-on-enter=true class="rawdata-tab">
                 <div class="rs-resource-data-table">
                     <mp-field-visualization subject='[[this]]'
                         fields='[[fieldDefinitionsFromQuery (setQueryBindings "SELECT DISTINCT ?field WHERE {?field <http://www.researchspace.org/resource/system/fields/category> ?c } ORDER BY DESC(?field)" resource=this.iri) ]]'
@@ -65,6 +65,88 @@
                         <template id="template">{{> rsp:ResourceFieldBasedVisualization subject="[[this]]"}}</template>
                     </mp-field-visualization>
                 </div>
+            </bs-tab>
+            <bs-tab title='Earthquakes Frequency' event-key='rel-eq' mount-on-enter=true class="rawdata-tab">
+                <semantic-table id="eq-table" query='
+                    PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/>
+                    PREFIX crmsci: <http://www.cidoc-crm.org/extensions/crmsci/>
+                    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                    PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+                    PREFIX eq: <https://crm-eq.ics.forth.gr/ontology#>
+                    
+                    SELECT
+                    ?magClass
+                    (MAX(?date) AS ?lastDate)
+                    (STR(xsd:integer(COUNT(?earthquake))) AS ?count)
+                    WHERE {
+                    ?earthquake a eq:EQ1_Earthquake ;
+                    crm:P7_took_place_at <[[this]]> ;
+                        crmsci:O12_has_dimension ?dimension ;
+                        crm:P4_has_time-span ?ts .
+                    
+                        ?dimension crm:P90_has_value ?magnitude .
+                        ?ts crm:P82a_begin_of_the_begin ?date .
+                    
+                        OPTIONAL {
+                        <[[this]]> crm:P1_is_identified_by ?app .
+                            ?app rdfs:label ?areaLabel1 .
+                            }
+                            OPTIONAL {
+                            <[[this]]> rdfs:label ?areaLabel2 .
+                                }
+                    
+                                BIND(
+                                IF(?magnitude > 9, "> 9",
+                                IF(?magnitude > 8.5, "> 8.5",
+                                IF(?magnitude > 8, "> 8",
+                                IF(?magnitude > 7.5, "> 7.5",
+                                IF(?magnitude > 7, "> 7",
+                                IF(?magnitude > 6.5, "> 6.5",
+                                IF(?magnitude > 6, "> 6",
+                                IF(?magnitude > 5.5, "> 5.5",
+                                IF(?magnitude > 5, "> 5", "5>"
+                                ))))))))) AS ?magClass
+                                )
+                                }GROUP by ?magClass ?lastDate ?count
+                    
+                      ' number-of-displayed-rows="15" options='{"showFilter": true}' no-result-template='{{> noeq}}'
+                    column-configuration='[
+                      {"variableName": "magClass", "displayName": "Magnitude", "cellTemplate": "{{> magnitude}}"},
+                      {"variableName": "lastDate", "displayName": "Last Date Of Occurence"},
+                      {"variableName": "count", "displayName": "Number of Earthquakes" }
+                      ]'>
+                    <template id="place">
+                        <semantic-link iri="{{place.value}}" style="color:#112e45;">{{areaLabel.value}}</semantic-link>
+                    </template>
+                    <template id="magnitude">
+                        {{#ifCond magClass.value "===" "> 9"}}
+                        <span style="color: red; font-weight: bold;">{{magClass.value}}</span>
+                        {{else ifCond magClass.value "===" "> 8.5"}}
+                        <span style="color: orange; font-weight: bold;">{{magClass.value}}</span>
+                        {{else ifCond magClass.value "===" "> 8"}}
+                        <span style="color: yellow; font-weight: bold;">{{magClass.value}}</span>
+                        {{else ifCond magClass.value "===" "> 7.5"}}
+                        <span style="color: green; font-weight: bold;">{{magClass.value}}</span>
+                        {{else ifCond magClass.value "===" "> 7"}}
+                        <span style="color: blue; font-weight: bold;">{{magClass.value}}</span>
+                        {{else ifCond magClass.value "===" "> 6.5"}}
+                        <span style="color: purple; font-weight: bold;">{{magClass.value}}</span>
+                        {{else ifCond magClass.value "===" "> 6"}}
+                        <span style="color: pink; font-weight: bold;">{{magClass.value}}</span>
+                        {{else ifCond magClass.value "===" "> 5.5"}}
+                        <span style="color: brown; font-weight: bold;">{{magClass.value}}</span>
+                        {{else ifCond magClass.value "===" "> 5"}}
+                        <span style="color: gray; font-weight: bold;">{{magClass.value}}</span>
+                        {{else}}
+                        <span>{{magClass.value}}</span>
+                        {{/ifCond}}
+                    </template>
+                    <template id="noeq">
+                        <div style="padding: 12px 8px">
+                            No earthquakes available
+                        </div>
+                    </template>
+                </semantic-table>
             </bs-tab>
         </bs-tabs>
     </div>
