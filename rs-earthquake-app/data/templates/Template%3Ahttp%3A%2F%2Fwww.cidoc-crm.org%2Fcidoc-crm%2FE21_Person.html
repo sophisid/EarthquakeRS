@@ -57,7 +57,7 @@
                 </div>
             </bs-tab>
             [[/if]]
-            <bs-tab title='Raw data' event-key='raw-data' mount-on-enter=true class="rawdata-tab">
+            <bs-tab title='Information' event-key='raw-data' mount-on-enter=true class="rawdata-tab">
                 <div class="rs-resource-data-table">
                     <mp-field-visualization subject='[[this]]'
                         fields='[[fieldDefinitionsFromQuery (setQueryBindings "SELECT DISTINCT ?field WHERE {?field <http://www.researchspace.org/resource/system/fields/category> ?c } ORDER BY DESC(?field)" resource=this.iri) ]]'

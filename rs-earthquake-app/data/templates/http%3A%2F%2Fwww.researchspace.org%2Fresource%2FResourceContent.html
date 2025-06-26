@@ -63,7 +63,7 @@
             </div>
         </bs-tab>
     [[/if]]
-        <bs-tab title='Raw data' event-key='raw-data' mount-on-enter=true class="rawdata-tab">
+        <bs-tab title='Information' event-key='raw-data' mount-on-enter=true class="rawdata-tab">
             <mp-field-visualization subject='[[this]]'
                 fields='[[fieldDefinitionsFromQuery (setQueryBindings "SELECT DISTINCT ?field WHERE {?resource ?field ?o . ?field a <http://www.researchspace.org/resource/system/fields/Field> } ORDER BY DESC(?field)" resource=this.iri) ]]'
                 template='{{> template}}'>
@@ -147,7 +147,7 @@
                         [[#if withSummary]]
                         <bs-nav-item event-key="summary">Summary</bs-nav-item>
                         [[/if]]
-                        <bs-nav-item event-key="raw-data">Raw data</bs-nav-item>
+                        <bs-nav-item event-key="raw-data">Information</bs-nav-item>
                         [[#if withGeoData]]
                         <bs-nav-item event-key="places">Related Places</bs-nav-item>
                         [[/if]]
