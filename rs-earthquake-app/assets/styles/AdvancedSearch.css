@@ -1,0 +1,113 @@
+.navbar-default {
+    box-shadow: none !important
+  }
+  
+  .earthquake-card {
+    margin-bottom: 15px;
+  }
+  
+  .help-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #337ab7;
+    color: white;
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+  }
+
+search-results-holder {
+    background-color: red;
+    margin-top: 20px;
+    border-color: black;
+    border-style: solid;
+    border-width: 10px;
+}
+
+.filters-container {
+    position: relative; /* Set relative positioning for the container */
+    padding: 15px;
+    background-color: #f8f9fa; /* Light background for better visibility */
+    border: 1px solid #d2cece; /* Border around the filter container */
+    border-radius: 5px;
+}
+
+/* Style for the category selector list */
+.category-selector {
+    list-style-type: none; /* Remove default bullet points */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+    display: flex; /* Display filters in a row */
+    flex-wrap: wrap; /* Allow wrapping if filters exceed container width */
+    gap: 10px; /* Add spacing between filters */
+    
+}
+
+/* Style for individual filter items */
+.category-item {
+    width: 50px; /* Set a fixed width for icons */
+    height: 50px; /* Set a fixed height for icons */
+    background-size: cover; /* Ensure icons fit within the item */
+    background-position: center; /* Center the icons */
+    border: 1px solid #ccc; /* Add a border around each item */
+    border-radius: 5px; /* Rounded corners for a modern look */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Add hover effects */
+}
+
+/* Hover effect for filter items */
+.category-item:hover {
+    transform: scale(1.1); /* Slightly enlarge the item */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+}
+
+/* Style for active filter items */
+.category-item-holder--active .category-item {
+    border-color: #007bff; /* Highlight active filters with a blue border */
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.4); /* Add shadow for active filters */
+}
+
+/* Style for the filter panel header */
+#filter-panel .panel-heading {
+    background-color: #007bff; /* Blue background for the header */
+    color: white; /* White text for contrast */
+    padding: 10px;
+    border-radius: 5px 5px 0 0; /* Rounded corners for the top of the panel */
+}
+
+/* Style for the "Hide Filter" button */
+.show-facet-button {
+    display: none;;
+    font-size: 12px;
+    padding: 5px 10px;
+    background-color: #007bff; /* Blue background */
+    color: white; /* White text */
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    position: absolute; /* Position the button absolutely */
+    bottom: 10px; /* Place the button at the bottom of the container */
+    right: 10px; /* Align it to the right */
+    z-index: 100; /* Ensure it stays above other elements */
+}
+
+/* Hover effect for the "Hide Filter" button */
+.show-facet-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.filter-list {
+    list-style-type: none; /* Removes default bullet points */
+    padding: 0; /* Removes default padding */
+    margin: 0; /* Removes default margin */
+}
+
+.filter-list li {
+    margin-bottom: 10px; /* Adds spacing between list items */
+}
