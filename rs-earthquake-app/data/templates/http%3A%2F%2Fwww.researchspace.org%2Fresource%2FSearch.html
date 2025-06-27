@@ -24,7 +24,23 @@
     </div>
   </section>
 
-  <section><h1>edw tha itan wraio na mpoun eikones apo ta xeirografa</h1></section>
+  <section style="display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 20px;">
+    <div class="photo-item">
+      <img src="/assets/book/book1.jpg" alt="Photo 1">
+    </div>
+    <div class="photo-item">
+      <img src="/assets/book/book2.jpg" alt="Photo 2">
+    </div>
+    <div class="photo-item">
+      <img src="/assets/book/book3.jpg" alt="Photo 3">
+    </div>
+    <div class="photo-item">
+      <img src="/assets/book/book4.jpg" alt="Photo 4">
+    </div>
+    <div class="photo-item">
+      <img src="/assets/book/book5.jpg" alt="Photo 5">
+    </div>
+  </section>
 </div>
 <style>
   .search-simple {
@@ -39,5 +55,25 @@
 }
 .search-widget {
     width: 40vw;
+}
+.photo-item {
+    width: 200px; /* Set a fixed width for each photo */
+    height: 200px; /* Set a fixed height for each photo */
+    overflow: hidden; /* Ensure photos fit within the container */
+    border-radius: 10px; /* Add rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for better appearance */
+    margin: 20px; /* Add 20px gap around each photo box */
+}
+
+.photo-item img {
+    width: 100%; /* Make the image fill the container */
+    height: 100%; /* Ensure the image fits within the container */
+    object-fit: cover; /* Crop the image to fit the container */
+}
+
+section {
+    display: flex; /* Use flexbox for layout */
+    flex-wrap: wrap; /* Allow wrapping if photos exceed container width */
+    justify-content: center; /* Center the photos horizontally */
 }
 </style>
