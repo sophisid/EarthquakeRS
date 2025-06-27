@@ -335,7 +335,7 @@
 
 #structured-search .facet__relation__values__value:focus,
 #structured-search .facet__relation__values__value:hover {
-    background-color: #4532d115 !important;
+    background-color: #d1323915 !important;
 }
 
 #structured-search .FacetBreadcrumbs--cancelButton {
@@ -438,7 +438,7 @@
     background: white;
 }
 
-div#eq-filter-search:only-child {
+div#artwork-filter-search:only-child {
     display: none !important;
 }
 
@@ -630,4 +630,16 @@ div#eq-filter-search:only-child {
 .export-buttons {
     display: none !important;
     gap: 5px;
+}
+
+.facet__category-selector-holder .category-selector {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin: 0;
+    width: auto;
+    border: none;
 }

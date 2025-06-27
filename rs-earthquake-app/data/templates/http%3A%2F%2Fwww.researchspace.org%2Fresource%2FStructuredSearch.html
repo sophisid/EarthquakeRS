@@ -117,6 +117,47 @@
          </div>
       </semantic-search>
    </div>
+   <rs-guided-tour id='guided-tour' steps='[{
+         "text": "Welcome to the Earthquake Search Builder. This tool allows you to create complex queries about earthquakes and related data.",
+         "selector": "#semantic-query-builder",
+         "position": "bottom"
+       }, {
+         "text": "Lets create a query for Earthquakes that occurred in Greece with magnitude greater than 7.0",
+         "selector": ".QueryBuilder--domainSelection",
+         "position": "bottom"
+       }, {
+         "text": "First, select the Earthquake category to begin your search.",
+         "selector": ".QueryBuilder--categorySelectionItem",
+         "position": "right"
+       }, {
+         "text": "Now, lets specify the location. Select the \"took place at\" relation.",
+         "selector": ".QueryBuilder--relationSelector",
+         "position": "right"
+       }, {
+         "text": "Type \"Greece\" in the search box and select it from the results.",
+         "selector": ".QueryBuilder--searchBasedTermSelector",
+         "position": "right"
+       }, {
+         "text": "To add the magnitude filter, click the \"and\" button.",
+         "selector": ".QueryBuilder--addConjunctButton",
+         "position": "right"
+       }, {
+         "text": "Select \"has magnitude\" from the relations list.",
+         "selector": ".QueryBuilder--relationSelector",
+         "position": "right"
+       }, {
+         "text": "Enter \">= 7.0\" to find major earthquakes.",
+         "selector": ".QueryBuilder--searchBasedTermSelector",
+         "position": "right"
+       }, {
+         "text": "Your search results will appear here. You can view them in different formats using these tabs.",
+         "selector": "#search-results",
+         "position": "top"
+       }]'></rs-guided-tour>
+   
+   <mp-event-trigger id='guided-tour-start' type='GuidedTour.Start' targets='["guided-tour"]'>
+      <button class="help-button fa fa-question"></button>
+   </mp-event-trigger>
 </div>
 
 <style>
@@ -132,3 +173,30 @@
       justify-content: center !important;
    }
 </style>
+<style>
+   .navbar-default {
+      box-shadow: none !important
+   }
+
+   .earthquake-card {
+      margin-bottom: 15px;
+   }
+
+   .help-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      font-size: 20px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #337ab7;
+      color: white;
+      border: none;
+      cursor: pointer;
+      z-index: 1000;
+   }
+   div#eq-filter-search{
+      display:none !important;
+   }
+   </style>

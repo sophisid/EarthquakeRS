@@ -33,15 +33,15 @@
       }
     
       BIND(
-        IF(?magnitude > 9, "over 9",
-        IF(?magnitude > 8.5, "over 8.5",
-        IF(?magnitude > 8, "over 8", 
-        IF(?magnitude > 7.5, "over 7.5",
-        IF(?magnitude > 7, "over 7",
-        IF(?magnitude > 6.5, "over 6.5",
-        IF(?magnitude > 6, "over 6",
-        IF(?magnitude > 5.5, "over 5.5",
-        IF(?magnitude > 5, "over 5", "under 5"
+        IF(?magnitude > 9, "> 9",
+        IF(?magnitude > 8.5, "> 8.5",
+        IF(?magnitude > 8, "> 8", 
+        IF(?magnitude > 7.5, "> 7.5",
+        IF(?magnitude > 7, "> 7",
+        IF(?magnitude > 6.5, "> 6.5",
+        IF(?magnitude > 6, "> 6",
+        IF(?magnitude > 5.5, "> 5.5",
+        IF(?magnitude > 5, "> 5", "< 5"
         ))))))))) AS ?magClass
       )
     }
@@ -57,23 +57,23 @@
         <semantic-link iri="{{place.value}}" style="color:#112e45;">{{areaLabel.value}}</semantic-link>
       </template>
       <template id="magnitude">
-        {{#ifCond magClass.value "===" "over 9"}}
+        {{#ifCond magClass.value "===" "> 9"}}
           <span style="color: red; font-weight: bold;">{{magClass.value}}</span>
-        {{else ifCond magClass.value "===" "over 8.5"}}
+        {{else ifCond magClass.value "===" "> 8.5"}}
           <span style="color: orange; font-weight: bold;">{{magClass.value}}</span>
-        {{else ifCond magClass.value "===" "over 8"}}
+        {{else ifCond magClass.value "===" "> 8"}}
           <span style="color: yellow; font-weight: bold;">{{magClass.value}}</span>
-        {{else ifCond magClass.value "===" "over 7.5"}}
+        {{else ifCond magClass.value "===" "> 7.5"}}
           <span style="color: green; font-weight: bold;">{{magClass.value}}</span>
-        {{else ifCond magClass.value "===" "over 7"}}
+        {{else ifCond magClass.value "===" "> 7"}}
           <span style="color: blue; font-weight: bold;">{{magClass.value}}</span>
-        {{else ifCond magClass.value "===" "over 6.5"}}
+        {{else ifCond magClass.value "===" "> 6.5"}}
           <span style="color: purple; font-weight: bold;">{{magClass.value}}</span>
-        {{else ifCond magClass.value "===" "over 6"}}
+        {{else ifCond magClass.value "===" "> 6"}}
           <span style="color: pink; font-weight: bold;">{{magClass.value}}</span>
-        {{else ifCond magClass.value "===" "over 5.5"}}
+        {{else ifCond magClass.value "===" "> 5.5"}}
           <span style="color: brown; font-weight: bold;">{{magClass.value}}</span>
-        {{else ifCond magClass.value "===" "over 5"}}
+        {{else ifCond magClass.value "===" "> 5"}}
           <span style="color: gray; font-weight: bold;">{{magClass.value}}</span>
         {{else}}
           <span>{{magClass.value}}</span>
