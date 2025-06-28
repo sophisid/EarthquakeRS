@@ -111,3 +111,21 @@ search-results-holder {
 .filter-list li {
     margin-bottom: 10px; /* Adds spacing between list items */
 }
+
+#earthquake-search {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.page-breadcrumb {
+  margin-top: 10px;
+}
+
+.structured-search-section {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: center;
+}

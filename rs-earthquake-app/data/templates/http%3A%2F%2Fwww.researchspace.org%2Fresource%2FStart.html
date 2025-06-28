@@ -48,9 +48,9 @@
    </div>
 </section> 
 <section style="text-align: center;">
-   <div class="metrics-container">
+   <div class="metrics-container" style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
       <div class="metrics-title">Statistics</div>
-      <div class="metrics-boxes">
+      <div class="metrics-boxes" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
          <div class="metric-box">
             <div class="metric-value">
                <semantic-query query="SELECT (STR(COUNT(?sub)) AS ?count)
@@ -116,12 +116,11 @@
       <semantic-link iri="rsp:ViewAllEarthquakes"><button class="view-metrics-btn">View all Earthquakes</button></semantic-link>
    </div>
 </section>
-<section style="">
+
+<section style="display: flex; justify-content: center; align-items: center; padding: 20px;">
    [[>rsp:StructuredSearch]]
 </section>
-<section>
-   
-</section>
+
 <style>
    .search-widget{
       width: inherit;
