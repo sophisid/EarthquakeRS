@@ -1,6 +1,5 @@
-<div class="structured-search-page">
-   <div id="structured-search">
-
+<div class="structured-search-page" style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+   <div id="structured-search" style="width: 100%; max-width: 1200px;">
       <semantic-search categories='[[> rsp:SearchCategories]]' relations='[[> rsp:SearchRelations]]'
          search-profile='[[> rsp:SearchProfile]]' limit="1000" >
 
@@ -10,16 +9,16 @@
                      "noSuggestionsTemplate": "<div class=\"suggestion-no-matches\">no matches found</div>"
                    }'></semantic-search-query-builder>          
          <semantic-search-facet-store values-limit="1000" id='facet'></semantic-search-facet-store>
-         <div class="bottom-section" data-flex-layout="row stretch-stretch">
-            <bs-col lg="3" md="4" sm="5" class="fade-in-fwd filters-container" style="margin-top: 8px"
+         <div class="bottom-section" style="display: flex; flex-wrap: wrap; gap: 20px;">
+            <bs-col lg="3" md="4" sm="5" class="fade-in-fwd filters-container" style="margin-top: 8px; display: flex; flex-direction: column; gap: 10px;"
                id="eq-filter-search">
                <bs-panel id="filter-panel" header="Filters" collapsible="true" default-expanded="true">
                   <semantic-search-facet open-by-default='true' sortby='count-desc' prefetch-labels="false"
                      facet-values-threshold="1000"></semantic-search-facet>
                </bs-panel>
             </bs-col>
-            <semantic-search-result-holder>
-               <div data-flex-self="md-full">
+            <semantic-search-result-holder style="flex: 1;">
+               <div data-flex-self="md-full" style="display: flex; flex-direction: column; gap: 20px;">
                   <semantic-search-facet-breadcrumbs></semantic-search-facet-breadcrumbs>
 
                   <semantic-search-result>
@@ -72,23 +71,43 @@
                      </bs-tab>
                      <bs-tab event-key="2" title="Table">
                         <semantic-search-result id="table-view-result">
-                           <semantic-table id='table-result' query=' SELECT DISTINCT ?subject ?label (GROUP_CONCAT(DISTINCT ?typeLabel;SEPARATOR=", ")as ?typeLabel) WHERE {
-                                                     ?subject a ?type.
-                                                       ?subject rdfs:label ?label.
-                                                     ?type rdfs:label ?typeLabel.
-                                                   } GROUP BY ?subject ?label2 LIMIT 10000'
-                              options='{"showFilter":true,"showColumnToggle":true}'
-                              no-result-template='No results found' column-configuration='[
-                                                {"variableName":"subject","displayName":"Title","cellTemplate":"{{> link}}"},
-                                                {"variableName":"typeLabel","displayName":"Type"},
-                                                {"variableName":"typeLabel","displayName":"Type","visible":false}
-                                                ]'>
-                              <template id='link'>
-                                 <semantic-link iri="{{subject.value}}">{{label2.value}}</semantic-link>
-                              </template>
-                           </semantic-table>
-                        </semantic-search-result>
-                     </bs-tab>
+                           <semantic-table id="table-result"
+      query='
+      SELECT ?subject ?label ?typeLabel ?placeLabel ?date ?magnitude WHERE {
+        ?subject rdfs:label ?label .
+        OPTIONAL { 
+          ?subject a ?type .
+          ?type rdfs:label ?typeLabel .
+        }
+        OPTIONAL {
+          ?subject <http://www.cidoc-crm.org/cidoc-crm/P53_has_former_or_current_location> ?place .
+          ?place rdfs:label ?placeLabel .
+        }
+        OPTIONAL {
+          ?subject <http://www.cidoc-crm.org/cidoc-crm/P4_has_time-span> ?timespan .
+          ?timespan <http://www.cidoc-crm.org/cidoc-crm/P82a_begin_of_the_begin> ?date .
+        }
+        OPTIONAL { 
+          ?subject <https://crm-eq.ics.forth.gr/ontology#EQ_magnitude> ?magnitude .
+          FILTER(ISNUMERIC(?magnitude))
+        }
+      }'
+      options='{"showFilter":true,"showColumnToggle":true}'
+      no-result-template='No results found' 
+      column-configuration='[
+        {"variableName":"subject","displayName":"IRI","visible":false},
+        {"variableName":"label","displayName":"Name","cellTemplate":"{{> link}}"},
+        {"variableName":"typeLabel","displayName":"Type"},
+        {"variableName":"placeLabel","displayName":"Location"},
+        {"variableName":"date","displayName":"Date"},
+        {"variableName":"magnitude","displayName":"Magnitude"}
+      ]'>
+      <template id='link'>
+        <semantic-link iri="{{subject.value}}">{{label.value}}</semantic-link>
+      </template>
+    </semantic-table>
+  </semantic-search-result>
+</bs-tab>
                      <bs-tab event-key="3" title="Graph">
                         <semantic-search-result id="graph-view-result">
                            <semantic-graph id="graph-result" height='600px' query='
@@ -117,7 +136,8 @@
          </div>
       </semantic-search>
    </div>
-   <rs-guided-tour id='guided-tour' steps='[{
+</div>
+<rs-guided-tour id='guided-tour' steps='[{
          "text": "Welcome to the Earthquake Search Builder. This tool allows you to create complex queries about earthquakes and related data.",
          "selector": "#semantic-query-builder",
          "position": "bottom"
@@ -158,7 +178,6 @@
    <mp-event-trigger id='guided-tour-start' type='GuidedTour.Start' targets='["guided-tour"]'>
       <button class="help-button fa fa-question"></button>
    </mp-event-trigger>
-</div>
 
 <style>
    i.fa.fa-caret-down.DataTable--button-icon-right {
