@@ -643,3 +643,15 @@ div#artwork-filter-search:only-child {
     width: auto;
     border: none;
 }
+
+.ItemSelector--itemSelector {
+    border: 1px solid #ddd;
+    list-style: none;
+    padding: 0;
+    display: inline-block;
+    -webkit-box-shadow: 0 4px 10px rgba(0,0,0,.17);
+    box-shadow: 0 4px 10px rgba(0,0,0,.17);
+    z-index: 1;
+    position: relative;
+    margin-bottom: 150px;
+}
