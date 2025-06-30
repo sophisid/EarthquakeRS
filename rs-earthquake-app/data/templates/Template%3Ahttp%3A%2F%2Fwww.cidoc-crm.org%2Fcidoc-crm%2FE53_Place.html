@@ -16,7 +16,7 @@
     
                 <mp-draggable iri='[[this]]'>
                     <div class="draggable-container">
-                        <semantic-query query='SELECT ?type ?typeLabel WHERE {
+                        <semantic-query query='SELECT DISTINCT ?typeLabel WHERE {
                                                 <[[this]]> a ?type .
                                                 ?type rdfs:label ?typeLabel .
                                                 FILTER (lang(?typeLabel) = "en")}' template='{{> resourceType }}'>
