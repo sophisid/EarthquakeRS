@@ -8,8 +8,7 @@ The ResearchSpace Earthquake App is designed to provide an efficient setup for e
 
 ### Prerequisites
 To ensure proper functionality, you must have:
-- A local Blazegraph instance running.
-- 
+- A Blazegraph or a Virtuoso instance running
 
 ---
 
