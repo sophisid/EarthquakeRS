@@ -1,4 +1,4 @@
-# ResearchSpace Earthquake App
+# Part of the paper [To Automate or not to Automate the Transcription of Ancient Earthquakes: Toward a Global Knowledge Graph about Ancient Earthquakes](https://users.ics.forth.gr/~sophisid/files/2025_IJCKG_EQA2A.pdf)
 
 ## Overview
 The ResearchSpace Earthquake App is designed to provide an efficient setup for exploring and analyzing earthquake data within a ResearchSpace (RS) instance. This repository is structured into two main directories:
